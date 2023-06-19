@@ -1,16 +1,16 @@
 {
-  "name": "fleny-site",
-  "version": "0.0.0",
-  "license": "MIT",
+  "name": "nuxt-app",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "sass": "^1.50.0",
-    "typescript": "^4.5.4",
-    "vite": "^2.9.2"
+    "@nuxt/devtools": "^0.6.1",
+    "@types/node": "^20.3.1",
+    "nuxt": "^3.5.3"
   }
 }
