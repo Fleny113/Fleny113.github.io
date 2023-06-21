@@ -8,17 +8,21 @@
 }
 
 html {
-    color-scheme: light dark;
+    color-scheme: only dark;
 }
 
 body {
     margin: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 1rem 0;
+}
+
 #__nuxt {
     display: grid;
     align-items: center;
-    place-items: center;
+    grid-template-columns: repeat(4, 1fr);
 
     width: 100dvw;
     height: 100dvh;
@@ -28,4 +32,9 @@ body {
     background-image: radial-gradient(hsla(0 0% 100% / 0.2) 8%, transparent 8%);
     background-position: 0% 0%;
     background-size: 60px 60px;
+}
+
+section {
+    padding: 3rem 1.5rem;
+    margin-inline: 2rem;
 }

@@ -1,22 +1,28 @@
 <template>
-    <main>
-        <h1>Hi</h1>
-    </main>
+    <section class="header">
+        <h1>About me</h1>
+
+        <p>
+            <i>Hey!</i> I'm Fleny, I'm a 16 years old guy that really interested in technology. I'm from Italy
+            <br>
+            Programming is one of my main passion.
+        </p>
+    </section>
 </template>
 
 <style scoped>
-main {
-    width: 600px;
-    height: 300px;
+section.header {
+    grid-column: 2 / 4;
 
     background-color: hsla(0 0% 84% / 0.125);
     backdrop-filter: blur(4px);
 
     border: 1px solid hsla(0 0% 98% / 0.125);
     border-radius: 25px;
-}
+    box-shadow: 0 0 14px 3px black;
 
-h1 {
     text-align: center;
+
+    line-height: 1.6;
 }
 </style>
