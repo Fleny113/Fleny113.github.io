@@ -1,5 +1,5 @@
 <template>
-    <section class="header">
+    <section class="about">
         <h1>About me</h1>
 
         <p>
@@ -11,7 +11,7 @@
 </template>
 
 <style scoped>
-section.header {
+.about {
     grid-column: 2 / 4;
 
     background-color: hsla(0 0% 84% / 0.125);
