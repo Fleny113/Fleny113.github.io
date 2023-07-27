@@ -5,6 +5,6 @@ export default defineNuxtConfig({
         enabled: true,
     },
     typescript: {
-        strict: true
+        strict: true,
     }
 });
