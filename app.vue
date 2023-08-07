@@ -5,7 +5,7 @@
         <p>
             <i>Hey!</i> I'm <span class="name">Fleny</span>, I'm a 16 years old guy that really interested in technology.
             <br>
-            I'm from Italy
+            I'm from <span class="italy">Italy</span>
             <br>
             Programming 💻 is one of my main passion.
         </p>
@@ -79,6 +79,13 @@ section:last-child {
     background-clip: text;
 
     letter-spacing: 1.25px;
+}
+
+.italy {
+    color: transparent;
+
+    background: linear-gradient(to right, hsl(350, 100%, 44%) 35%, hsl(0, 0%, 100%) 35% 60%, hsl(130, 98%, 19%) 60%);
+    background-clip: text;
 }
 
 .link {
