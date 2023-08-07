@@ -19,10 +19,11 @@
             <a class="link csharp" href="https://dot.net" target="_blank">C# (.NET)</a>
             and
             <a class="link typescript" href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> /
-            <span class="javascript">Javascript</span>
+            <a class="link javascript" href="https://developer.mozilla.org/docs/Web/JavaScript"
+                target="_blank">Javascript</a>
             but I also use
             <a class="link python" href="https://python.org" target="_blank">Python</a>
-            sometimes. I do Backend projects for the most part but I also use
+            sometimes. I do Backend projects for the most part, but I also use
             <a class="link vue" href="https://vuejs.org" target="_blank">Vue</a>
             or
             <a class="link svelte" href="https://svelte.dev" target="_blank">Svelte</a>
