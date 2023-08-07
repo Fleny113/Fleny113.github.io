@@ -29,9 +29,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 100dvw;
     height: 100dvh;
 
-    padding-inline: 2rem;
-
-    color: white;
     background-color: hsl(0, 0%, 8%);
     background-image: radial-gradient(hsla(0 0% 100% / 0.2) 8%, transparent 8%);
     background-position: 0% 0%;
