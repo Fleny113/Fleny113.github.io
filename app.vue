@@ -27,7 +27,7 @@ useHead({
 </script>
 
 <template>
-    <section class="about small-centered">
+    <section class="large-center small-centered">
         <h1>About me</h1>
 
         <p>
@@ -39,10 +39,10 @@ useHead({
         </p>
     </section>
 
-    <section class="projects small-centered">
+    <section class="projects large-left small-centered">
         <h2>Projects</h2>
 
-        <p class="pretty-wrap">
+        <p class="balance-wrap">
             Mainly my projects are in
             <a class="link csharp" href="https://dotnet.microsoft.com" target="_blank">C# (.NET)</a>
             and
@@ -78,27 +78,9 @@ section:last-child {
     margin-bottom: 200px;
 }
 
-.about {
-    grid-column: 2 / 4;
-    grid-row: 1;
-}
-
 .projects {
     position: relative;
     top: -7.5vh;
-
-    grid-column: 1 / 3;
-    grid-row: 2;
-
-    margin-left: 5vw;
-}
-
-@media (width <=600px) {
-    .small-centered {
-        grid-column: 1 / 5;
-
-        margin-inline: 5vw;
-    }
 }
 
 .name {
@@ -115,16 +97,6 @@ section:last-child {
 
     background: linear-gradient(to right, hsl(350, 100%, 44%) 35%, hsl(0, 0%, 100%) 35% 60%, hsl(130, 98%, 19%) 60%);
     background-clip: text;
-}
-
-.link {
-    text-decoration: underline dotted;
-    text-underline-offset: 5px;
-}
-
-.pretty-wrap {
-    /* text-wrap is an experimental propriety. If a browser doesn't support it will revert to the default behavior */
-    text-wrap: balance;
 }
 
 .csharp {

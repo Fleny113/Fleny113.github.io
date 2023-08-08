@@ -1,4 +1,4 @@
 {
-    "css.lint.unknownProperties": "warning",
+    "css.lint.idSelector": "ignore",
     "css.lint.validProperties": [ "text-wrap" ]
 }
