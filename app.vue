@@ -1,3 +1,31 @@
+<script setup lang="ts">
+useSeoMeta({
+    title: "Fleny",
+    description: "Fleny website",
+    ogTitle: "Fleny",
+    ogDescription: "Fleny website",
+    ogImage: "/favicon.jpg",
+    ogUrl: "https://fleny113.github.io",
+    twitterTitle: "Fleny",
+    twitterDescription: "Fleny website",
+    twitterImage: "/favicon.jpg",
+    twitterCard: "summary_large_image"
+});
+
+useHead({
+    htmlAttrs: {
+        lang: "en"
+    },
+    link: [
+        {
+            rel: "icon",
+            type: "image/jpg",
+            href: "/favicon.jpg"
+        }
+    ]
+});
+</script>
+
 <template>
     <section class="about small-centered">
         <h1>About me</h1>
@@ -16,7 +44,7 @@
 
         <p class="pretty-wrap">
             Mainly my projects are in
-            <a class="link csharp" href="https://dot.net" target="_blank">C# (.NET)</a>
+            <a class="link csharp" href="https://dotnet.microsoft.com" target="_blank">C# (.NET)</a>
             and
             <a class="link typescript" href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> /
             <a class="link javascript" href="https://developer.mozilla.org/docs/Web/JavaScript"
