@@ -31,11 +31,11 @@ useHead({
         <h1>About me</h1>
 
         <p class="pretty-wrap">
-            <i>Hey!</i> I'm <span class="name">Fleny</span>, I'm a 16 years old guy that really interested in technology.
+            <i>Hey!</i> I'm <span class="name">Fleny</span>, I'm a 16 years old guy who is really interested in technology.
             <br>
             I'm from <span class="italy">Italy</span>
             <br>
-            Programming 💻 is one of my main passion.
+            Programming 💻 is one of my main passions.
         </p>
     </section>
 
@@ -43,7 +43,7 @@ useHead({
         <h2>Projects</h2>
 
         <p class="pretty-wrap">
-            Mainly my projects are in
+            My projects are mainly in
             <a class="link csharp" href="https://dotnet.microsoft.com" target="_blank">C# (.NET)</a>
             and
             <a class="link typescript" href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> /
@@ -66,15 +66,16 @@ useHead({
             <p class="pretty-wrap">
                 Bestemmiometro is a <span class="discord">Discord</span> bot that counts how
                 many blasphemies are sent in a
-                message and create a ranking
-                of the discord server with the most blasphemies sent.
+                message and creates a ranking
+                of the discord server with the most sent blasphemies.
                 <br>
-                This bot is not created only by me, but also by
-                <a class="link" href="https://antogamer.it" target="_blank">Antogamer</a>
+                This bot is not developed by me only, but by
+                <a class="link" href="https://antogamer.it" target="_blank">Anto</a>
                 and
                 <a class="link" href="https://github.com/tsClauz" target="_blank">Clauz</a>
+                too
                 <br>
-                The bot only support italian as languages and we don't have plan to support more languages
+                The bot only supports italian as languages and we don't plan to support more languages
             </p>
         </section>
 
@@ -109,12 +110,12 @@ useHead({
             <h3><a class="link" href="https://github.com/Debianissimo">Debianissimo</a></h3>
 
             <p class="pretty-wrap">
-                Debianissimo is the porting of Ordissimo os to any computer, it was initially born as a joke and currently
-                is not very active. The only way we maintain the project is via an install-script on our github
+                Debianissimo is the porting of Ordissimo os to any computer, it was initially born as a joke and is
+                currently not very active. The only way we maintain the project is via an install-script on our github
                 <br>
-                This project is not maintained only by me, but also by
+                This project is not maintained by me only, but also, mainly, by
                 <a class="link" href="https://vinchethescript.github.io/" target="_blank">Vinche</a>
-                mainly and some other people
+                and some other people too
                 <br>
                 This project is italian only
             </p>
