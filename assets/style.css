@@ -54,7 +54,7 @@ section {
 }
 
 .pretty-wrap {
-    /* text-wrap is an experimental propriety. If a browser doesn't support it will revert to the default behavior */
+    /* text-wrap: pretty is an experimental propriety value. If a browser doesn't support it will revert to the default behavior */
     text-wrap: pretty;
 }
 

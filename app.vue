@@ -87,9 +87,6 @@ useHead({
                 APIs endpoints while keeping it as easy as possible to use while still having the advantages of auto binding
                 the
                 native ASP.NET Core approach provides
-                <br>
-                This library is inspired by
-                <a class="link" href="https://github.com/FastEndpoints/FastEndpoints" target="_blank">FastEndpoints</a>
             </p>
         </section>
 
@@ -123,6 +120,17 @@ useHead({
             </p>
         </section>
     </div>
+
+    <section class="contacts large-left small-centered">
+        <h2>Contacts</h2>
+
+        <p class="pretty-wrap">
+            You can contact me via
+            <a class="link discord" href="https://discord.com/users/498434550347726850" target="_blank">Discord</a>,
+            with <a class="link telegram" href="https://t.me/fleny113" target="_blank">Telegram</a> or via
+            <a class="link email" href="mailto:fleny113@outlook.com" target="_blank">email</a>
+        </p>
+    </section>
 </template>
 
 <style scoped>
@@ -156,6 +164,10 @@ section:last-child {
     gap: 2rem;
 
     grid-row: 3;
+}
+
+.contacts {
+    grid-row: 4;
 }
 
 .name {
@@ -206,6 +218,15 @@ section:last-child {
 
 .discord {
     /* Color from the discord branding */
-    color: hsl(235 86% 65%)
+    color: hsl(235 86% 65%);
+}
+
+.telegram {
+    /* Color from the telegram branding */
+    color: hsl(199, 73%, 49%);
+}
+
+.email {
+    color: hsl(340, 100%, 37%);
 }
 </style>
