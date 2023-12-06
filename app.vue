@@ -80,29 +80,44 @@ useHead({
         </section>
 
         <section>
-            <h3><a class="link" href="https://github.com/Fleny113/EndpointMapper" target="_blank">EndpointMapper</a></h3>
+            <h3><a class="link" href="https://github.com/Fleny113/Hexus" target="_blank">Hexus</a></h3>
 
             <p class="pretty-wrap">
-                EndpointMapper is a library for <span class="csharp">ASP.NET Core</span> to map methods in a class as
-                minimal
-                APIs endpoints while keeping it as easy as possible to use while still having the advantages of auto binding
-                the
-                native ASP.NET Core approach provides
+                Hexus is an open source process manager written using <span class="csharp">C#</span>. The project is
+                inspired by
+                <a class="link" href="https://github.com/Unitech/pm2" target="_blank">pm2</a>
+                and tries to improve on some parts of it like how the log files are splitted for STDOUT and STDERR.
+                <br>
+                It is designed to be cross platform and fast while having a clean and powerful CLI you can use to manage
+                your applications.
             </p>
         </section>
 
         <section>
-            <h3><a class="link" href="https://github.com/Fleny113/Hexus" target="_blank">Hexus</a></h3>
+            <h3><a class="link" href="https://github.com/discordeno/discordeno" target="_blank">Discordeno</a></h3>
 
             <p class="pretty-wrap">
-                Hexus is a Process Manager written using <span class="csharp">C#</span>. Currently it's in a really early
-                stage,
-                it technically works but it's not usable at all as the only way to control the processes is to use the REST
-                API
-                the daemon exposes via a unix socket (or http port) using a tool like cURL.
-                <br>
-                This project is heavily inspired by
-                <a class="link" href="https://github.com/Unitech/pm2" target="_blank">pm2</a>
+                Discordeno is an open source library for the <span class="discord">Discord</span> api that supports node,
+                deno and bun written in <span class="typescript">Typescript</span>. The library is simple, efficient and
+                lightweight so you can build whatever you want with it.
+                I'm a contributor of this amazing library
+                <a class="link" href="https://github.com/discordeno/discordeno/graphs/contributors" target="_blank">
+                    among a lot of other nice people</a>.
+
+                <br><br>
+                <a class="link" href="https://discord.gg/ddeno" target="_blank">Discord server</a>
+                for support and discussions on the library
+            </p>
+        </section>
+
+        <section>
+            <h3><a class="link" href="https://github.com/Fleny113/EndpointMapper" target="_blank">EndpointMapper</a></h3>
+
+            <p class="pretty-wrap">
+                EndpointMapper is an open source library for <span class="csharp">ASP.NET Core</span> to map methods in a
+                class as minimal APIs endpoints while keeping it as easy as possible.
+                The library uses the native ASP.NET delegate system to bind the parameters of your methods to be as close to
+                the native approaches while having the advantages of auto discovery of your endpoints.
             </p>
         </section>
 
