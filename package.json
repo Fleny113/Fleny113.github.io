@@ -9,7 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "1.5.1",
+    "@nuxt/devtools": "1.5.2",
     "@types/node": "^22.7.4",
     "nuxt": "^3.13.2"
   }
