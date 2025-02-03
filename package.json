@@ -11,6 +11,6 @@
   "devDependencies": {
     "@nuxt/devtools": "1.7.0",
     "@types/node": "^22.10.10",
-    "nuxt": "^3.15.3"
+    "nuxt": "^3.15.4"
   }
 }
