@@ -142,8 +142,8 @@ useHead({
 
         <p class="pretty-wrap">
             You can contact me via
-            <a class="link discord" href="https://discord.com/users/498434550347726850" target="_blank">Discord</a>,
-            with <a class="link telegram" href="https://t.me/fleny113" target="_blank">Telegram</a> or via
+            <a class="link discord" href="https://discord.com/users/498434550347726850" target="_blank">Discord</a> (@<span class="discord">fleny</span>),
+            via <a class="link telegram" href="https://t.me/fleny113" target="_blank">Telegram</a> or via
             <a class="link email" href="mailto:fleny113@outlook.com" target="_blank">email</a>
         </p>
     </section>
