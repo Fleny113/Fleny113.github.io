@@ -31,7 +31,7 @@ useHead({
         <h1>About me</h1>
 
         <p class="pretty-wrap">
-            <i>Hey!</i> I'm <span class="name">Fleny</span>, I'm a 17 years old guy who is really interested in technology.
+            <i>Hey!</i> I'm <span class="name">Fleny</span>, I'm a 18 years old guy who is really interested in technology.
             <br>
             I'm from <span class="italy">Italy</span>
             <br>
