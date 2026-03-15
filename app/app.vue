@@ -31,7 +31,8 @@ useHead({
         <h1>About me</h1>
 
         <p class="pretty-wrap">
-            <i>Hey!</i> I'm <span class="name">Fleny</span>, I'm a 19 years old guy who is really interested in technology.
+            <i>Hey!</i> I'm <span class="name">Fleny</span>, I'm a 19 years old guy who is really interested in
+            technology.
             <br>
             I'm from <span class="italy">Italy</span>
             <br>
@@ -97,7 +98,8 @@ useHead({
             <h3><a class="link" href="https://github.com/discordeno/discordeno" target="_blank">Discordeno</a></h3>
 
             <p class="pretty-wrap">
-                Discordeno is an open source library for the <span class="discord">Discord</span> api that supports node,
+                Discordeno is an open source library for the <span class="discord">Discord</span> api that supports
+                node,
                 deno and bun written in <span class="typescript">Typescript</span>. The library is simple, efficient and
                 lightweight so you can build whatever you want with it.
                 I'm a contributor of this amazing library
@@ -111,12 +113,15 @@ useHead({
         </section>
 
         <section>
-            <h3><a class="link" href="https://github.com/Fleny113/EndpointMapper" target="_blank">EndpointMapper</a></h3>
+            <h3><a class="link" href="https://github.com/Fleny113/EndpointMapper" target="_blank">EndpointMapper</a>
+            </h3>
 
             <p class="pretty-wrap">
-                EndpointMapper is an open source library for <span class="csharp">ASP.NET Core</span> to map methods in a
+                EndpointMapper is an open source library for <span class="csharp">ASP.NET Core</span> to map methods in
+                a
                 class as minimal APIs endpoints while keeping it as easy as possible.
-                The library uses the native ASP.NET delegate system to bind the parameters of your methods to be as close to
+                The library uses the native ASP.NET delegate system to bind the parameters of your methods to be as
+                close to
                 the native approaches while having the advantages of auto discovery of your endpoints.
             </p>
         </section>
@@ -142,7 +147,8 @@ useHead({
 
         <p class="pretty-wrap">
             You can contact me via
-            <a class="link discord" href="https://discord.com/users/498434550347726850" target="_blank">Discord</a> (@<span class="discord">fleny</span>),
+            <a class="link discord" href="https://discord.com/users/498434550347726850" target="_blank">Discord</a>
+            (@<span class="discord">fleny</span>),
             via <a class="link telegram" href="https://t.me/fleny113" target="_blank">Telegram</a> or via
             <a class="link email" href="mailto:fleny113@outlook.com" target="_blank">email</a>
         </p>

@@ -1,5 +1,6 @@
 {
-  "name": "nuxt-app",
+  "name": "fleny-site",
+  "packageManager": "pnpm@10.32.1",
   "private": true,
   "scripts": {
     "build": "nuxt build",
@@ -9,8 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "2.6.2",
-    "@types/node": "^24.0.13",
-    "nuxt": "^3.17.7"
+    "@nuxt/devtools": "3.2.3",
+    "@types/node": "^25.5.0",
+    "nuxt": "^4.4.2"
   }
 }
