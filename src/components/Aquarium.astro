@@ -7,7 +7,7 @@ import { getRandomElement } from "../utils.ts";
 const FISH_COUNT = 50;
 const FISH_WIDTH = 50;
 const FISH_BASE_SPEED = 0.12;
-const CURSOR_INFLUENCE_RADIUS = 75;
+const CURSOR_INFLUENCE_RADIUS = 65;
 const POSITION_CURSOR_REPULSION_STRENGTH = 1.2;
 const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
     src: svg.src,
@@ -24,10 +24,17 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
     {
         Array.from({ length: FISH_COUNT }, () => {
             const { src, aspectRatio } = getRandomElement(FISH_IMAGES);
-            const scale = Math.random() * 0.2 + 0.8;
-            const width = FISH_WIDTH * scale;
 
-            return <img class="fish" src={src} width={width} height={width / aspectRatio} alt="" />;
+            return (
+                <img
+                    class="fish"
+                    src={src}
+                    width={FISH_WIDTH}
+                    height={FISH_WIDTH}
+                    data-aspect-radtio={aspectRatio}
+                    alt=""
+                />
+            );
         })
     }
 </fish-aquarium>
@@ -121,7 +128,7 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
 
                 if (distance < this.fishCursorInfluenceRadius) {
                     const closeness = (this.fishCursorInfluenceRadius - distance) / this.fishCursorInfluenceRadius;
-                    const repulsionStrength = (closeness * 2 + 1) * this.fishCursorRepulsionStrength;
+                    const repulsionStrength = (closeness + 1) * this.fishCursorRepulsionStrength;
 
                     if (dx > 0 && dy > 0) {
                         // The fish is top right of the cursor
@@ -159,8 +166,15 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
         }
 
         #buildFish(element: HTMLImageElement): Fish {
-            const width = element.width;
-            const height = element.height;
+            assert(element.dataset.aspectRadtio, "Aspect ratio not found");
+
+            const scale = Math.random() * 0.2 + 0.8;
+            const aspectRatio = parseFloat(element.dataset.aspectRadtio);
+
+            const width = element.width * scale;
+
+            element.width = width;
+            element.height = width / aspectRatio;
 
             return {
                 element,
@@ -169,8 +183,8 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
                     x: (Math.random() - 0.5) * this.fishSpeed + 0.01,
                     y: (Math.random() - 0.5) * this.fishSpeed + 0.01,
                 },
-                width,
-                height,
+                width: element.width,
+                height: element.height,
                 position: {
                     x: Math.random() * window.innerWidth,
                     y: Math.random() * window.innerHeight,
