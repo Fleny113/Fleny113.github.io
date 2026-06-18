@@ -1,0 +1,228 @@
+---
+import blueFish from "../assets/fishes/blue-fish.svg";
+import redFish from "../assets/fishes/red-fish.svg";
+import whiteFish from "../assets/fishes/white-fish.svg";
+import { getRandomElement } from "../utils.ts";
+
+const FISH_COUNT = 50;
+const FISH_WIDTH = 50;
+const FISH_BASE_SPEED = 0.12;
+const CURSOR_INFLUENCE_RADIUS = 75;
+const POSITION_CURSOR_REPULSION_STRENGTH = 1.2;
+const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
+    src: svg.src,
+    aspectRatio: svg.width / svg.height,
+}));
+---
+
+<fish-aquarium
+    data-fish-speed={FISH_BASE_SPEED}
+    data-cursor-influence-radius={CURSOR_INFLUENCE_RADIUS}
+    data-cursor-repulsion-strength={POSITION_CURSOR_REPULSION_STRENGTH}
+    aria-hidden="true"
+>
+    {
+        Array.from({ length: FISH_COUNT }, () => {
+            const { src, aspectRatio } = getRandomElement(FISH_IMAGES);
+            const scale = Math.random() * 0.2 + 0.8;
+            const width = FISH_WIDTH * scale;
+
+            return <img class="fish" src={src} width={width} height={width / aspectRatio} alt="" />;
+        })
+    }
+</fish-aquarium>
+
+<script>
+    import { assert } from "../utils.ts";
+
+    class Aquarium extends HTMLElement {
+        #lastTimestamp: number | null = null;
+        #pointerCoords = { x: 0, y: 0 };
+        #currentFrame: number | null = null;
+
+        fishSpeed!: number;
+        fishCursorInfluenceRadius!: number;
+        fishCursorRepulsionStrength!: number;
+        fishes!: Fish[];
+
+        connectedCallback() {
+            assert(this.dataset.fishSpeed, "Fish speed not found");
+            assert(this.dataset.cursorInfluenceRadius, "Cursor influence radius missing");
+            assert(this.dataset.cursorRepulsionStrength, "Cursor repulsion strength not found");
+
+            this.fishSpeed = parseFloat(this.dataset.fishSpeed);
+            this.fishCursorInfluenceRadius = parseFloat(this.dataset.cursorInfluenceRadius);
+            this.fishCursorRepulsionStrength = parseFloat(this.dataset.cursorRepulsionStrength);
+
+            this.fishes = Array.from(this.querySelectorAll<HTMLImageElement>("img")).map(this.#buildFish.bind(this));
+
+            document.addEventListener("pointermove", (event) => {
+                this.#pointerCoords.x = event.clientX;
+                this.#pointerCoords.y = event.clientY;
+            });
+
+            this.#currentFrame = requestAnimationFrame(this.#fishAnimation.bind(this));
+
+            document.addEventListener("visibilitychange", () => {
+                if (document.visibilityState === "hidden" && this.#currentFrame !== null) {
+                    // When the page is hidden, we reset the animation state so that when the page is visible again, the fish won't jump to a new position due to the large delta time
+                    this.#lastTimestamp = null;
+                    cancelAnimationFrame(this.#currentFrame);
+                } else {
+                    this.#currentFrame = requestAnimationFrame(this.#fishAnimation.bind(this));
+                }
+            });
+        }
+
+        #fishAnimation(timestamp: number) {
+            this.#lastTimestamp ??= timestamp;
+
+            const deltaTime = timestamp - this.#lastTimestamp;
+            this.#lastTimestamp = timestamp;
+
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            for (const fish of this.fishes) {
+                this.#tickFish(fish, deltaTime, viewportWidth, viewportHeight);
+            }
+
+            this.#currentFrame = requestAnimationFrame(this.#fishAnimation.bind(this));
+        }
+
+        #tickFish(fish: Fish, deltaTime: number, viewportWidth: number, viewportHeight: number) {
+            fish.position.x += fish.speed.x * deltaTime;
+            fish.position.y += fish.speed.y * deltaTime;
+
+            if (fish.position.x <= 0 || fish.position.x + fish.width >= viewportWidth) {
+                fish.position.x = fish.position.x <= 0 ? 1 : viewportWidth - fish.width - 1;
+                fish.speed.x *= -1;
+            }
+
+            if (fish.position.y <= 0 || fish.position.y + fish.height >= viewportHeight) {
+                fish.position.y = fish.position.y <= 0 ? 1 : viewportHeight - fish.height - 1;
+                fish.speed.y *= -1;
+            }
+
+            const fishCenterX = fish.position.x + fish.width / 2;
+            const fishCenterY = fish.position.y + fish.height / 2;
+
+            // Mouse repulsion
+            // First we check a box around the fish to avoid doing the distance calculations for every fish on every frame
+            if (
+                this.#pointerCoords.x >= fishCenterX - this.fishCursorInfluenceRadius &&
+                this.#pointerCoords.x <= fishCenterX + this.fishCursorInfluenceRadius &&
+                this.#pointerCoords.y >= fishCenterY - this.fishCursorInfluenceRadius &&
+                this.#pointerCoords.y <= fishCenterY + this.fishCursorInfluenceRadius
+            ) {
+                const dx = fishCenterX - this.#pointerCoords.x;
+                const dy = -(fishCenterY - this.#pointerCoords.y);
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < this.fishCursorInfluenceRadius) {
+                    const closeness = (this.fishCursorInfluenceRadius - distance) / this.fishCursorInfluenceRadius;
+                    const repulsionStrength = (closeness * 2 + 1) * this.fishCursorRepulsionStrength;
+
+                    if (dx > 0 && dy > 0) {
+                        // The fish is top right of the cursor
+                        fish.position.x += repulsionStrength;
+                        fish.position.y -= repulsionStrength;
+
+                        if (fish.speed.x < 0) fish.speed.x *= -1;
+                        if (fish.speed.y > 0) fish.speed.y *= -1;
+                    } else if (dx < 0 && dy > 0) {
+                        // The fish is top left of the cursor
+                        fish.position.x -= repulsionStrength;
+                        fish.position.y -= repulsionStrength;
+
+                        if (fish.speed.x > 0) fish.speed.x *= -1;
+                        if (fish.speed.y > 0) fish.speed.y *= -1;
+                    } else if (dx < 0 && dy < 0) {
+                        // The fish is bottom right of the cursor
+                        fish.position.x -= repulsionStrength;
+                        fish.position.y += repulsionStrength;
+
+                        if (fish.speed.x > 0) fish.speed.x *= -1;
+                        if (fish.speed.y < 0) fish.speed.y *= -1;
+                    } else {
+                        // The fish is bottom left of the cursor
+                        fish.position.x += repulsionStrength;
+                        fish.position.y += repulsionStrength;
+
+                        if (fish.speed.x < 0) fish.speed.x *= -1;
+                        if (fish.speed.y < 0) fish.speed.y *= -1;
+                    }
+                }
+            }
+
+            fish.element.style.transform = `translate3d(${fish.position.x}px, ${fish.position.y}px, 0) scale3d(${-Math.sign(fish.speed.x)}, 1, 1)`;
+        }
+
+        #buildFish(element: HTMLImageElement): Fish {
+            const width = element.width;
+            const height = element.height;
+
+            return {
+                element,
+                speed: {
+                    // The +0.001 is to prevent the fish from being completely still
+                    x: (Math.random() - 0.5) * this.fishSpeed + 0.01,
+                    y: (Math.random() - 0.5) * this.fishSpeed + 0.01,
+                },
+                width,
+                height,
+                position: {
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                },
+            };
+        }
+    }
+
+    customElements.define("fish-aquarium", Aquarium);
+
+    type Fish = {
+        readonly element: HTMLImageElement;
+        readonly speed: {
+            x: number;
+            y: number;
+        };
+        readonly width: number;
+        readonly height: number;
+        readonly position: {
+            x: number;
+            y: number;
+        };
+    };
+</script>
+
+<style>
+    fish-aquarium {
+        --color-top-left: oklab(64.637% -0.07645 -0.11442 / 0.1);
+        --color-bottom-right: oklch(38.365% 0.24614 266.572 / 0.2);
+        --color-gradient1: oklch(77.152% 0.14144 221.336 / 0.3);
+        --color-gradient2: oklch(49.99% 0.24139 262.553 / 0.4);
+        --color-gradient3: oklch(42.622% 0.28212 266.847 / 0.2);
+
+        position: absolute;
+        inset: 0;
+        width: 100dvw;
+        height: 100dvh;
+        overflow: hidden;
+        background:
+            linear-gradient(120deg in oklch, var(--color-gradient1), var(--color-gradient2), var(--color-gradient3)),
+            radial-gradient(circle closest-side at 15% 25% in oklch, var(--color-top-left), transparent),
+            radial-gradient(circle closest-side at 75% 85% in oklch, var(--color-bottom-right), transparent);
+
+        user-select: none;
+        touch-action: pinch-zoom;
+
+        .fish {
+            position: absolute;
+            pointer-events: none;
+
+            transform-origin: center;
+            will-change: transform;
+        }
+    }
+</style>

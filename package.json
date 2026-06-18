@@ -20,5 +20,9 @@
       "version": "11.7.0",
       "onFail": "download"
     }
+  },
+  "devDependencies": {
+    "prettier": "3.8.4",
+    "prettier-plugin-astro": "0.14.1"
   }
 }
