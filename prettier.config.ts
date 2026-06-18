@@ -1,7 +1,5 @@
 import type { Config } from "prettier";
 
-console.log("Prettier config loaded.");
-
 export default {
     printWidth: 120,
     tabWidth: 4,
