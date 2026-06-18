@@ -1,81 +1,81 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Astro Basics</title>
+    </head>
+    <body>
+        <slot />
+    </body>
 </html>
 
 <style>
-	:root {
-		--text: #6b6375;
-		--text-h: #08060d;
+    :root {
+        --text: #6b6375;
+        --text-h: #08060d;
 
-		--sans: system-ui, "Segoe UI", Roboto, sans-serif;
-		--heading: system-ui, "Segoe UI", Roboto, sans-serif;
+        --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+        --heading: system-ui, "Segoe UI", Roboto, sans-serif;
 
-		font: 18px/145% var(--sans);
-		letter-spacing: 0.18px;
-		color-scheme: light dark;
-		color: var(--text);
-		font-synthesis: none;
-		text-rendering: optimizeLegibility;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		overscroll-behavior-y: contain;
+        font: 18px/145% var(--sans);
+        letter-spacing: 0.18px;
+        color-scheme: light dark;
+        color: var(--text);
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overscroll-behavior-y: contain;
 
-		@media (max-width: 1024px) {
-			font-size: 16px;
-		}
-	}
+        @media (max-width: 1024px) {
+            font-size: 16px;
+        }
+    }
 
-	@media (prefers-color-scheme: dark) {
-		:root {
-			--text: #9ca3af;
-			--text-h: #f3f4f6;
-		}
-	}
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --text: #9ca3af;
+            --text-h: #f3f4f6;
+        }
+    }
 
-	body {
-		margin: 0;
-		position: relative;
-	}
+    body {
+        margin: 0;
+        position: relative;
+    }
 
-	h1,
-	h2 {
-		font-family: var(--heading);
-		font-weight: 500;
-		color: var(--text-h);
-	}
+    h1,
+    h2 {
+        font-family: var(--heading);
+        font-weight: 500;
+        color: var(--text-h);
+    }
 
-	h1 {
-		font-size: 56px;
-		letter-spacing: -1.68px;
-		margin: 32px 0;
+    h1 {
+        font-size: 56px;
+        letter-spacing: -1.68px;
+        margin: 32px 0;
 
-		@media (max-width: 1024px) {
-			font-size: 36px;
-			margin: 20px 0;
-		}
-	}
+        @media (max-width: 1024px) {
+            font-size: 36px;
+            margin: 20px 0;
+        }
+    }
 
-	h2 {
-		font-size: 24px;
-		line-height: 118%;
-		letter-spacing: -0.24px;
-		margin: 0 0 8px;
+    h2 {
+        font-size: 24px;
+        line-height: 118%;
+        letter-spacing: -0.24px;
+        margin: 0 0 8px;
 
-		@media (max-width: 1024px) {
-			font-size: 20px;
-		}
-	}
+        @media (max-width: 1024px) {
+            font-size: 20px;
+        }
+    }
 
-	p {
-		margin: 0;
-	}
+    p {
+        margin: 0;
+    }
 </style>

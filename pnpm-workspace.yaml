@@ -1,6 +1,6 @@
 allowBuilds:
-  esbuild: true
-  sharp: true
+    esbuild: true
+    sharp: true
 
 configDependencies:
-  '@pnpm/pacquet': 0.11.7
+    "@pnpm/pacquet": 0.11.7

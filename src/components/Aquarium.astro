@@ -1,4 +1,5 @@
 ---
+import type { JSX } from "astro/jsx-runtime";
 import blueFish from "../assets/fishes/blue-fish.svg";
 import redFish from "../assets/fishes/red-fish.svg";
 import whiteFish from "../assets/fishes/white-fish.svg";
@@ -22,7 +23,7 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
     aria-hidden="true"
 >
     {
-        Array.from({ length: FISH_COUNT }, () => {
+        Array.from({ length: FISH_COUNT }, (): JSX.Element => {
             const { src, aspectRatio } = getRandomElement(FISH_IMAGES);
 
             return (
