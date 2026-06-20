@@ -38,9 +38,7 @@
                 // JavaScript / TypeScript
                 "organizeImports": "on",
                 // JSON
-                "useSortedPackageJson": "on",
-                // CSS
-                "useSortedProperties": "on"
+                "useSortedPackageJson": "on"
             }
         }
     }

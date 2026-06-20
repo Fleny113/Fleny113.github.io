@@ -62,6 +62,11 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
             this.fishCursorInfluenceRadius = parseFloat(this.dataset.cursorInfluenceRadius);
             this.fishCursorRepulsionStrength = parseFloat(this.dataset.cursorRepulsionStrength);
 
+            // They are init values, so we don't need them anymore after we read them
+            delete this.dataset.fishSpeed;
+            delete this.dataset.cursorInfluenceRadius;
+            delete this.dataset.cursorRepulsionStrength;
+
             this.fishes = Array.from(this.querySelectorAll<HTMLImageElement>("img")).map(this.#buildFish.bind(this));
 
             document.addEventListener("pointermove", (event) => {
@@ -224,13 +229,13 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
         width: 100dvw;
         height: 100dvh;
         overflow: hidden;
+        touch-action: pinch-zoom;
+
+        user-select: none;
         background:
             linear-gradient(120deg in oklch, var(--color-gradient1), var(--color-gradient2), var(--color-gradient3)),
             radial-gradient(circle closest-side at 15% 25% in oklch, var(--color-top-left), transparent),
             radial-gradient(circle closest-side at 75% 85% in oklch, var(--color-bottom-right), transparent);
-
-        user-select: none;
-        touch-action: pinch-zoom;
 
         .fish {
             position: absolute;

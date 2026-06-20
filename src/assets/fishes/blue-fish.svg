@@ -7,6 +7,7 @@
    xml:space="preserve"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
+   aria-hidden="true"
 >
    <path
       fill="#5fc8e0"

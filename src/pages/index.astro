@@ -3,6 +3,125 @@ import Aquarium from "../components/Aquarium.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
+<Layout title="Fleny" description="Fleny website" image="/favicon.jpg" url="https://fleny113.github.io">
     <Aquarium />
+
+    <main>
+        <section class="content blur-box">
+            <h1>Welcome! I'm <span class="fleny">Fleny</span></h1>
+            <p><span class="italic">Hi there!</span> I'm glad you're here.</p>
+            <p>
+                I'm a 19 years old from <span class="italy">Italy</span> who is really interested in technology, especially
+                <span class="programming">programming</span>.
+            </p>
+            <p>I hope you'll like what you see!</p>
+        </section>
+
+        <section class="fleny-tooltip-content blur-box">
+            <p>I go by he/him</p>
+            <p>Oh and I'm a furry :3</p>
+        </section>
+    </main>
 </Layout>
+
+<style>
+    main {
+        z-index: 1;
+
+        display: grid;
+        align-items: center;
+        justify-content: center;
+
+        color: white;
+        text-wrap: balance;
+        text-align: center;
+
+        height: 100vh;
+    }
+
+    h1 {
+        font-family: var(--font-zalando-sans), sans-serif;
+    }
+
+    p {
+        font-family: var(--font-fira-code), monospace;
+    }
+
+    .blur-box {
+        background: rgba(128, 79, 243, 0.12);
+        border: 3px solid rgba(182, 165, 238, 0.3);
+        border-radius: 16px;
+        box-shadow: 0px 20px 20px 10px rgba(0 0 0 / .2);
+        backdrop-filter: blur(12px);
+    }
+
+    .content {
+        width: clamp(100px, 75%, 800px);
+        margin-inline: auto;
+        padding: 12px 32px;
+
+        h1 {
+            font-size: 48px;
+            text-align: left;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    }
+
+    .fleny {
+        font-weight: bold;
+        font-family: var(--font-fira-code), sans-serif;
+
+        text-decoration: dashed underline #804ff3 3px;
+
+        color: transparent;
+        background: linear-gradient(to top right, #804ff3, #b6a5ee);
+        background-clip: text;
+
+        anchor-name: --fleny-tooltip;
+    }
+
+    .fleny-tooltip-content {
+        opacity: 0;
+        visibility: hidden;
+
+        position: absolute;
+        position-anchor: --fleny-tooltip;
+        position-area: top;
+
+        padding-inline: 2rem;
+        width: max-content;
+
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+
+        /* When .fleny is hovered, show this tooltip */
+        :has(.fleny:hover) &,
+        /* Keep the tooltip visibile if it is hovered or in focus */
+        &:hover,
+        &:focus-within {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        p {
+            margin-block: 5px;
+        }
+    }
+
+    .italy {
+        color: transparent;
+        background: linear-gradient(to right in hsl, #008c45, #f4f5f0 2ch, #cd212a);
+        background-clip: text;
+    }
+
+    .programming {
+        font-family: monospace;
+        color: lightgreen;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+</style>
