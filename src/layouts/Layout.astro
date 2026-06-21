@@ -1,4 +1,5 @@
 ---
+import "./styles.css";
 import CommonHead, { type Props as CommonHeadProps } from "../components/CommonHead.astro";
 
 type Props = CommonHeadProps & {
@@ -9,29 +10,15 @@ type Props = CommonHeadProps & {
 <!doctype html>
 <html lang="en">
     <head>
-        <CommonHead title={Astro.props.title} description={Astro.props.description} image={Astro.props.image} url={Astro.props.url} />
+        <CommonHead
+            title={Astro.props.title}
+            description={Astro.props.description}
+            image={Astro.props.image}
+            url={Astro.props.url}
+        />
     </head>
 
     <body>
         <slot />
     </body>
 </html>
-
-<style>
-    :root {
-        overscroll-behavior-y: contain;
-
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        color-scheme: dark;
-        text-rendering: optimizeLegibility;
-
-        @media (width <= 1024px) {
-            font-size: 16px;
-        }
-    }
-
-    body {
-        margin: 0;
-    }
-</style>

@@ -22,22 +22,20 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
     data-cursor-repulsion-strength={POSITION_CURSOR_REPULSION_STRENGTH}
     aria-hidden="true"
 >
-    {
-        Array.from({ length: FISH_COUNT }, (): JSX.Element => {
-            const { src, aspectRatio } = getRandomElement(FISH_IMAGES);
+    {Array.from({ length: FISH_COUNT }, (): JSX.Element => {
+        const { src, aspectRatio } = getRandomElement(FISH_IMAGES);
 
-            return (
-                <img
-                    class="fish"
-                    src={src}
-                    width={FISH_WIDTH}
-                    height={FISH_WIDTH}
-                    data-aspect-radtio={aspectRatio}
-                    alt=""
-                />
-            );
-        })
-    }
+        return (
+            <img
+                class="fish"
+                src={src}
+                width={FISH_WIDTH}
+                height={FISH_WIDTH}
+                data-aspect-radtio={aspectRatio}
+                alt=""
+            />
+        );
+    })}
 </fish-aquarium>
 
 <script>
@@ -46,7 +44,6 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
     class Aquarium extends HTMLElement {
         #lastTimestamp: number | null = null;
         #pointerCoords = { x: 0, y: 0 };
-        #currentFrame: number | null = null;
 
         fishSpeed!: number;
         fishCursorInfluenceRadius!: number;
@@ -74,17 +71,7 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
                 this.#pointerCoords.y = event.clientY;
             });
 
-            this.#currentFrame = requestAnimationFrame(this.#fishAnimation.bind(this));
-
-            document.addEventListener("visibilitychange", () => {
-                if (document.visibilityState === "hidden" && this.#currentFrame !== null) {
-                    // When the page is hidden, we reset the animation state so that when the page is visible again, the fish won't jump to a new position due to the large delta time
-                    this.#lastTimestamp = null;
-                    cancelAnimationFrame(this.#currentFrame);
-                } else {
-                    this.#currentFrame = requestAnimationFrame(this.#fishAnimation.bind(this));
-                }
-            });
+            requestAnimationFrame(this.#fishAnimation.bind(this));
         }
 
         #fishAnimation(timestamp: number) {
@@ -93,6 +80,13 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
             const deltaTime = timestamp - this.#lastTimestamp;
             this.#lastTimestamp = timestamp;
 
+            // If the delta time is 1s we can assume that the page was hidden and requestAnimationFrame throttled
+            if (deltaTime > 1000) {
+                console.info("[Aquarium] Delta time too large, skipping animation frame");
+                requestAnimationFrame(this.#fishAnimation.bind(this));
+                return;
+            }
+
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
 
@@ -100,7 +94,7 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
                 this.#tickFish(fish, deltaTime, viewportWidth, viewportHeight);
             }
 
-            this.#currentFrame = requestAnimationFrame(this.#fishAnimation.bind(this));
+            requestAnimationFrame(this.#fishAnimation.bind(this));
         }
 
         #tickFish(fish: Fish, deltaTime: number, viewportWidth: number, viewportHeight: number) {

@@ -21,7 +21,16 @@
         }
     },
     "html": {
+        "formatter": {
+            "enabled": true,
+            "indentScriptAndStyle": true
+        },
         "experimentalFullSupportEnabled": true
+    },
+    "css": {
+        "formatter": {
+            "enabled": true
+        }
     },
     "overrides": [
         {

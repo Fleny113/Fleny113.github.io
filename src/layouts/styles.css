@@ -1,0 +1,18 @@
+:root {
+    overscroll-behavior-y: contain;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color-scheme: dark;
+    text-rendering: optimizeLegibility;
+
+    font-size: 18px;
+}
+
+* {
+    margin: 0;
+}
+
+.italic {
+    font-style: italic;
+}
