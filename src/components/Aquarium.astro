@@ -1,5 +1,4 @@
 ---
-import type { JSX } from "astro/jsx-runtime";
 import blueFish from "../assets/fishes/blue-fish.svg";
 import redFish from "../assets/fishes/red-fish.svg";
 import whiteFish from "../assets/fishes/white-fish.svg";
@@ -22,7 +21,7 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
     data-cursor-repulsion-strength={POSITION_CURSOR_REPULSION_STRENGTH}
     aria-hidden="true"
 >
-    {Array.from({ length: FISH_COUNT }, (): JSX.Element => {
+    {Array.from({ length: FISH_COUNT }, () => {
         const { src, aspectRatio } = getRandomElement(FISH_IMAGES);
 
         return (
@@ -31,8 +30,10 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
                 src={src}
                 width={FISH_WIDTH}
                 height={FISH_WIDTH}
-                data-aspect-radtio={aspectRatio}
+                data-aspect-ratio={aspectRatio}
                 alt=""
+                decoding="async"
+                loading="eager"
             />
         );
     })}
@@ -82,7 +83,7 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
 
             // If the delta time is 1s we can assume that the page was hidden and requestAnimationFrame throttled
             if (deltaTime > 1000) {
-                console.info("[Aquarium] Delta time too large, skipping animation frame");
+                console.debug("[Aquarium] Delta time too large, skipping animation frame");
                 requestAnimationFrame(this.#fishAnimation.bind(this));
                 return;
             }
@@ -166,10 +167,10 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
         }
 
         #buildFish(element: HTMLImageElement): Fish {
-            assert(element.dataset.aspectRadtio, "Aspect ratio not found");
+            assert(element.dataset.aspectRatio, "Aspect ratio not found");
 
             const scale = Math.random() * 0.2 + 0.8;
-            const aspectRatio = parseFloat(element.dataset.aspectRadtio);
+            const aspectRatio = parseFloat(element.dataset.aspectRatio);
 
             const width = element.width * scale;
 
