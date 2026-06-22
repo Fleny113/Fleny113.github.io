@@ -211,6 +211,10 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
 </script>
 
 <style>
+    :global(:root) {
+        overscroll-behavior-y: contain;
+    }
+
     fish-aquarium {
         --color-top-left: oklab(64.637% -0.07645 -0.11442 / 0.1);
         --color-bottom-right: oklch(38.365% 0.24614 266.572 / 0.2);
