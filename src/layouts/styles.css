@@ -11,6 +11,10 @@
     margin: 0;
 }
 
+body {
+    height: 100dvh;
+}
+
 .italic {
     font-style: italic;
 }
