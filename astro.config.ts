@@ -5,15 +5,15 @@ export default defineConfig({
     fonts: [
         {
             provider: fontProviders.google(),
-            name: "Fira Code",
-            cssVariable: "--font-fira-code",
-            weights: ["400", "700"],
+            name: "Inter",
+            cssVariable: "--font-inter",
+            weights: ["700"],
         },
         {
             provider: fontProviders.google(),
-            name: "Zalando Sans SemiExpanded",
-            cssVariable: "--font-zalando-sans",
-            weights: ["700"],
+            name: "Exo 2",
+            cssVariable: "--font-exo-2",
+            weights: ["400", "700"],
         },
     ],
     experimental: {

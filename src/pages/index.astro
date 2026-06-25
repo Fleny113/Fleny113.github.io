@@ -1,14 +1,15 @@
 ---
-import favicon from "../assets/favicon.jpg";
-import Aquarium from "../components/Aquarium.astro";
-import Layout from "../layouts/Layout.astro";
+import favicon from "#/assets/favicon.jpg";
+import Aquarium from "#/components/Aquarium.astro";
+import BlurStyle from "#/components/BlurSection.astro";
+import Layout from "#/layouts/Layout.astro";
 ---
 
 <Layout title="Fleny" description="Fleny website" image={favicon} url="https://fleny113.github.io">
     <Aquarium />
 
     <main>
-        <section class="content blur-box">
+        <BlurStyle class="content">
             <h1 class="welcome-title">
                 <span class="welcome italic">Hi there!</span>
                 <span class="intro">I'm <span class="fleny">Fleny</span></span>
@@ -18,12 +19,12 @@ import Layout from "../layouts/Layout.astro";
                 especially <span class="programming">programming</span>.
             </p>
             <p>I hope you'll like what you see!</p>
-        </section>
+        </BlurStyle>
 
-        <section class="fleny-tooltip-content blur-box">
+        <BlurStyle class="fleny-tooltip-content">
             <p>My pronouns are he/him</p>
             <p>And I'm a furry :3</p>
-        </section>
+        </BlurStyle>
     </main>
 </Layout>
 
@@ -31,40 +32,23 @@ import Layout from "../layouts/Layout.astro";
     main {
         display: grid;
         align-content: center;
+        justify-items: center;
+
         height: 100%;
         padding-inline: 16px;
+
         text-wrap: balance;
-    }
-
-    p {
-        font-family: var(--font-fira-code);
         text-align: center;
-    }
-
-    * + p {
-        margin-top: 1rem;
-    }
-
-    .blur-box {
-        background: rgba(128, 79, 243, 0.12);
-        border: 3px solid rgba(182, 165, 238, 0.3);
-        border-radius: 16px;
-        box-shadow: 0px 20px 20px 10px rgba(0 0 0 / 0.2);
-        backdrop-filter: blur(12px);
     }
 
     .content {
         width: clamp(100px, 75%, 800px);
-        margin-inline: auto;
         padding: 24px 32px;
     }
 
     .welcome-title {
         display: grid;
         grid: repeat(2, auto) / auto;
-
-        font-family: var(--font-zalando-sans);
-        text-align: center;
 
         .welcome {
             font-size: 24px;
@@ -88,11 +72,9 @@ import Layout from "../layouts/Layout.astro";
     }
 
     .fleny {
+        font-family: var(--font-inter);
         font-weight: bold;
-        font-family: var(--font-fira-code), sans-serif;
-
         text-decoration: dashed underline #804ff3 3px;
-
         color: transparent;
         background: linear-gradient(to top right, #804ff3, #b6a5ee);
         background-clip: text;

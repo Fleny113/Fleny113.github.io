@@ -1,0 +1,22 @@
+---
+const { class: className, ...rest } = Astro.props;
+
+type Props = {
+    children: unknown;
+    class?: string | string[];
+};
+---
+
+<section class:list={["blur-box", className]} {...rest}>
+    <slot />
+</section>
+
+<style>
+    section {
+        background: rgba(128, 79, 243, 0.12);
+        border: 3px solid rgba(182, 165, 238, 0.3);
+        border-radius: 16px;
+        box-shadow: 0px 20px 20px 10px rgba(0 0 0 / 0.2);
+        backdrop-filter: blur(12px);
+    }
+</style>

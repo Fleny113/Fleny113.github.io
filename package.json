@@ -1,6 +1,9 @@
 {
   "name": "fleny-site",
   "type": "module",
+  "imports": {
+    "#/*": "src/*"
+  },
   "scripts": {
     "astro": "astro",
     "build": "astro build",
