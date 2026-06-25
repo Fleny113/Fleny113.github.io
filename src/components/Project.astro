@@ -1,0 +1,112 @@
+---
+import { Icon } from "astro-icon/components";
+import { assert } from "#/utils.ts";
+
+assert(Astro.slots.has("summary"), "Project component requires a 'summary' slot");
+assert(Astro.slots.has("details"), "Project component requires a 'details' slot");
+
+interface Props {
+    children: unknown;
+    expanded?: boolean;
+}
+---
+
+<section class="project" data-expanded={Astro.props.expanded}>
+    <project-summary>
+        <button type="button" class="summary">
+            <Icon size={30} name="mdi:chevron-right" class="icon" aria-hidden />
+            <div>
+                <slot name="summary" />
+            </div>
+        </button>
+    </project-summary>
+
+    <div class="details">
+        <slot name="details" />
+    </div>
+</section>
+
+<script>
+    import { assert } from "#/utils.ts";
+
+    class ProjectSummary extends HTMLElement {
+        connectedCallback() {
+            const project = this.closest(".project");
+            const button = this.querySelector("button");
+
+            assert(project, "ProjectSummary must be a child of a Project component");
+            assert(button, "ProjectSummary must contain a button element");
+
+            button.addEventListener("click", () => project.toggleAttribute("data-expanded"));
+        }
+    }
+
+    customElements.define("project-summary", ProjectSummary);
+</script>
+
+<style>
+    .project {
+        display: flex;
+        flex-direction: column;
+
+        &:not(:last-child) {
+            border-bottom: 3px var(--border);
+        }
+    }
+
+    .summary {
+        appearance: none;
+        font: inherit;
+        background: none;
+        border: none;
+
+        text-align: left;
+
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+
+        width: 100%;
+        padding: 0.5rem;
+        border-bottom: 0px var(--border);
+        cursor: pointer;
+
+        transition:
+            border-bottom 0.1s ease,
+            background-color 0.2s ease;
+
+        &:hover {
+            background-color: hsl(0 0 100 / 0.1);
+        }
+
+        [data-expanded] & {
+            border-bottom: 3px var(--border);
+        }
+
+        .icon {
+            place-self: center;
+            width: 1.5rem;
+            aspect-ratio: 1;
+
+            transform-origin: center;
+
+            [data-expanded] & {
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    .details {
+        overflow: hidden;
+        height: 0;
+
+        interpolate-size: allow-keywords;
+        transition:
+            height 0.5s ease,
+            padding-top 0.3s ease;
+
+        [data-expanded] & {
+            height: auto;
+            padding-block: 0.5rem;
+        }
+    }
+</style>

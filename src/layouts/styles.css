@@ -29,8 +29,7 @@ body {
     font-style: italic;
 }
 
-* + p,
-* + button {
+.margin-top {
     margin-top: 1rem;
 }
 

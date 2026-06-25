@@ -2,6 +2,7 @@
 import favicon from "#/assets/favicon.jpg";
 import Aquarium from "#/components/Aquarium.astro";
 import BlurStyle from "#/components/BlurSection.astro";
+import Project from "#/components/Project.astro";
 import Layout from "#/layouts/Layout.astro";
 ---
 
@@ -14,19 +15,19 @@ import Layout from "#/layouts/Layout.astro";
                 <span class="welcome italic">Hi there!</span>
                 <span class="intro">I'm <span class="fleny">Fleny</span></span>
             </h1>
-            <p>
+            <p class="margin-top">
                 I'm a 19 years old high school CS student from <span class="italy">Italy</span> with a passion for tech,
                 especially <span class="programming">programming</span>.
             </p>
-            <p>I hope you'll like what you see!</p>
-            <button class="explore-btn" id="explore-btn" type="button">Have a look around</button>
+            <p class="margin-top">I hope you'll like what you see!</p>
+            <button class="margin-top explore-btn" id="explore-btn" type="button">Have a look around</button>
 
             <script>
                 // Script for the "Have a look around" button to scroll to the projects section
                 import { assert } from "#/utils.ts";
 
-                const btn = document.querySelector(".explore-btn");
-                const projects = document.querySelector(".projects");
+                const btn = document.querySelector("main .explore-btn");
+                const projects = document.querySelector("main .projects");
 
                 assert(btn, "Explore button not found");
                 assert(projects, "Projects section not found");
@@ -42,7 +43,7 @@ import Layout from "#/layouts/Layout.astro";
 
         <BlurStyle class="content projects">
             <h2>Projects</h2>
-            <p>
+            <p class="margin-top">
                 I usually code in
                 {" "}<a class="dotnet" href="https://dot.net" target="_blank">.NET C#</a>{" "}
                 and
@@ -54,6 +55,46 @@ import Layout from "#/layouts/Layout.astro";
                 and
                 {" "}<a href="https://php.net" target="_blanck" class="php">PHP</a>.
             </p>
+
+            <div class="margin-top projects-list">
+                <!-- btw these do not exist, copilot invented them -->
+
+                <Project expanded>
+                    <Fragment slot="summary">
+                        <h3>FlenyBot</h3>
+                        <p>A Discord bot</p>
+                    </Fragment>
+                    <Fragment slot="details">
+                        <p>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur alias aspernatur dolorum
+                            hic delectus, quia quaerat perferendis quis qui consequatur error veritatis obcaecati,
+                            ducimus voluptatum sed sint dolor dignissimos labore!
+                        </p>
+                        <p class="margin-top">
+                            Eaque animi exercitationem aliquam nam veritatis sapiente iure ex assumenda voluptas
+                            accusantium voluptates harum quasi itaque distinctio quaerat, rerum aperiam, repudiandae
+                            consequatur? Animi commodi officia repudiandae voluptatibus est omnis dolore.
+                        </p>
+                        <p class="margin-top">
+                            Non molestias, repellat aut perspiciatis dolorum quaerat corporis dolore similique qui quae
+                            nulla porro consequuntur facilis. Et assumenda impedit recusandae dicta vero dolores maxime
+                            voluptates repellendus, odio omnis praesentium veniam.
+                        </p>
+                    </Fragment>
+                </Project>
+                <Project>
+                    <Fragment slot="summary">
+                        <h3>FlenyBot</h3>
+                    </Fragment>
+                    <Fragment slot="details">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos modi velit sint recusandae
+                            repudiandae ab, alias temporibus, sequi doloribus atque labore perspiciatis nulla hic,
+                            minima dolore ipsa iste est? Consequatur!
+                        </p>
+                    </Fragment>
+                </Project>
+            </div>
         </BlurStyle>
     </main>
 </Layout>
@@ -64,7 +105,7 @@ import Layout from "#/layouts/Layout.astro";
         place-items: center;
         place-content: center;
         /* Force the first row to be 100dvh */
-        grid-template-rows: 100dvh;
+        grid-template-rows: 100dvh auto;
 
         padding-inline: 16px;
         /* This is provably temp, as there will be a footer */
@@ -145,7 +186,7 @@ import Layout from "#/layouts/Layout.astro";
 
     .italy {
         color: transparent;
-        background: linear-gradient(to right in hsl, #008c45, #f4f5f0 1ch, #cd212a);
+        background: linear-gradient(to right in hsl, #008c45 33%, #f4f5f0 66%, #cd212a 66%);
         background-clip: text;
     }
 
@@ -165,11 +206,11 @@ import Layout from "#/layouts/Layout.astro";
         background-color: hsl(var(--fleny-light-hsl) / 0.1);
         box-shadow: 0px 10px 15px 5px hsl(0 0 0 / 0.2);
 
-        &:active {
-            /* Glow, and the normal shadow */
-            box-shadow:
-                0px 0px 10px 2px hsl(var(--fleny-light-hsl) / 0.1),
-                0px 10px 15px 5px hsl(0 0 0 / 0.2);
+        transition: background-color 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+            background-color: hsl(0 0 100 / 0.2);
         }
     }
     /* #endregion Hero */
@@ -208,6 +249,15 @@ import Layout from "#/layouts/Layout.astro";
         .php {
             color: var(--php);
         }
+    }
+
+    .projects-list {
+        --border: solid hsl(var(--fleny-light-hsl) / 0.3);
+
+        border: 3px var(--border);
+        border-radius: 16px;
+        background-color: hsl(0 0 100 / 0.1);
+        backdrop-filter: blur(16px);
     }
 
     /* #endregion Projects */

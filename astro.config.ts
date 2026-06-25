@@ -1,4 +1,5 @@
 import { defineConfig, fontProviders } from "astro/config";
+import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,6 +17,7 @@ export default defineConfig({
             weights: ["400", "700"],
         },
     ],
+    integrations: [icon()],
     experimental: {
         chromeDevtoolsWorkspace: true,
     },
