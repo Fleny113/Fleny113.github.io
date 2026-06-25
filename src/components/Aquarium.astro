@@ -40,7 +40,7 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
 </fish-aquarium>
 
 <script>
-    import { assert } from "../utils.ts";
+    import { assert } from "#/utils.ts";
 
     class Aquarium extends HTMLElement {
         #lastTimestamp: number | null = null;
@@ -223,10 +223,11 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
         --color-gradient2: oklch(49.99% 0.24139 262.553 / 0.4);
         --color-gradient3: oklch(42.622% 0.28212 266.847 / 0.2);
 
-        position: absolute;
+        position: fixed;
+        height: 100lvh;
         inset: 0;
         overflow: hidden;
-        touch-action: pinch-zoom;
+        touch-action: pinch-zoom cross-slide-y;
 
         user-select: none;
         background:

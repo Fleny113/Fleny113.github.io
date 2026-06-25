@@ -1,4 +1,11 @@
 :root {
+    /* Raw HSL values are useful for opacity changes */
+    --fleny-dark-hsl: 258 91 53;
+    --fleny-light-hsl: 254 56 84;
+
+    --fleny-dark: hsl(var(--fleny-dark-hsl));
+    --fleny-light: hsl(var(--fleny-light-hsl));
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color-scheme: dark;
@@ -6,6 +13,8 @@
 
     font-size: 20px;
     font-family: var(--font-exo-2);
+
+    scroll-behavior: smooth;
 }
 
 * {
@@ -13,13 +22,19 @@
 }
 
 body {
-    height: 100dvh;
+    min-height: 100dvh;
 }
 
 .italic {
     font-style: italic;
 }
 
-* + p {
+* + p,
+* + button {
     margin-top: 1rem;
+}
+
+a[href^="https://"] {
+    text-decoration: underline dotted;
+    text-underline-offset: 5px;
 }

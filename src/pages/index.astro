@@ -19,11 +19,41 @@ import Layout from "#/layouts/Layout.astro";
                 especially <span class="programming">programming</span>.
             </p>
             <p>I hope you'll like what you see!</p>
+            <button class="explore-btn" id="explore-btn" type="button">Have a look around</button>
+
+            <script>
+                // Script for the "Have a look around" button to scroll to the projects section
+                import { assert } from "#/utils.ts";
+
+                const btn = document.querySelector(".explore-btn");
+                const projects = document.querySelector(".projects");
+
+                assert(btn, "Explore button not found");
+                assert(projects, "Projects section not found");
+
+                btn.addEventListener("click", () => projects.scrollIntoView());
+            </script>
         </BlurStyle>
 
         <BlurStyle class="fleny-tooltip-content">
             <p>My pronouns are he/him</p>
             <p>And I'm a furry :3</p>
+        </BlurStyle>
+
+        <BlurStyle class="content projects">
+            <h2>Projects</h2>
+            <p>
+                I usually code in
+                {" "}<a class="dotnet" href="https://dot.net" target="_blank">.NET C#</a>{" "}
+                and
+                {" "}<a class="typescript" href="https://www.typescriptlang.org" target="_blank">Typescript</a>, but I
+                know other languages as well including
+                {" "}<a class="cpp" href="https://cppreference.com/" target="_blank">C/C++</a>,
+                {" "}<a href="https://python.org" target="_blanck" class="python">Python</a>,
+                {" "}<a href="https://java.com" target="_blanck" class="java">Java</a>{" "}
+                and
+                {" "}<a href="https://php.net" target="_blanck" class="php">PHP</a>.
+            </p>
         </BlurStyle>
     </main>
 </Layout>
@@ -31,11 +61,14 @@ import Layout from "#/layouts/Layout.astro";
 <style>
     main {
         display: grid;
-        align-content: center;
-        justify-items: center;
+        place-items: center;
+        place-content: center;
+        /* Force the first row to be 100dvh */
+        grid-template-rows: 100dvh;
 
-        height: 100%;
         padding-inline: 16px;
+        /* This is provably temp, as there will be a footer */
+        padding-bottom: 120px;
 
         text-wrap: balance;
         text-align: center;
@@ -46,6 +79,7 @@ import Layout from "#/layouts/Layout.astro";
         padding: 24px 32px;
     }
 
+    /* #region Hero */
     .welcome-title {
         display: grid;
         grid: repeat(2, auto) / auto;
@@ -74,9 +108,9 @@ import Layout from "#/layouts/Layout.astro";
     .fleny {
         font-family: var(--font-inter);
         font-weight: bold;
-        text-decoration: dashed underline #804ff3 3px;
+        text-decoration: dashed underline var(--fleny-dark) 3px;
         color: transparent;
-        background: linear-gradient(to top right, #804ff3, #b6a5ee);
+        background: linear-gradient(to top right, var(--fleny-dark), var(--fleny-light));
         background-clip: text;
 
         anchor-name: --fleny-tooltip;
@@ -111,7 +145,7 @@ import Layout from "#/layouts/Layout.astro";
 
     .italy {
         color: transparent;
-        background: linear-gradient(to right in hsl, #008c45, #f4f5f0 2ch, #cd212a);
+        background: linear-gradient(to right in hsl, #008c45, #f4f5f0 1ch, #cd212a);
         background-clip: text;
     }
 
@@ -119,4 +153,62 @@ import Layout from "#/layouts/Layout.astro";
         font-family: monospace;
         color: lightgreen;
     }
+
+    .explore-btn {
+        appearance: none;
+        font: inherit;
+
+        padding: 8px 16px;
+        border: none;
+        border-radius: 24px;
+
+        background-color: hsl(var(--fleny-light-hsl) / 0.1);
+        box-shadow: 0px 10px 15px 5px hsl(0 0 0 / 0.2);
+
+        &:active {
+            /* Glow, and the normal shadow */
+            box-shadow:
+                0px 0px 10px 2px hsl(var(--fleny-light-hsl) / 0.1),
+                0px 10px 15px 5px hsl(0 0 0 / 0.2);
+        }
+    }
+    /* #endregion Hero */
+
+    /* #region Projects */
+
+    .projects {
+        /* Programming language colors */
+        --csharp: hsl(253 67 66);
+        --typescript: hsl(211 60 48);
+        --cpp: hsl(300 95 55);
+        --python: hsl(48 100 65);
+        --java: hsl(20 100 50);
+        --php: hsl(229 30 64);
+
+        .dotnet {
+            color: var(--csharp);
+        }
+
+        .typescript {
+            color: var(--typescript);
+        }
+
+        .cpp {
+            color: var(--cpp);
+        }
+
+        .python {
+            color: var(--python);
+        }
+
+        .java {
+            color: var(--java);
+        }
+
+        .php {
+            color: var(--php);
+        }
+    }
+
+    /* #endregion Projects */
 </style>
