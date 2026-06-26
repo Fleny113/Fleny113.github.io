@@ -45,21 +45,24 @@ import Layout from "#/layouts/Layout.astro";
             <h2>Projects</h2>
             <p class="margin-top">
                 I usually code in
-                {" "}<a class="dotnet" href="https://dot.net" target="_blank">.NET C#</a>{" "}
+                <a href="https://dot.net" target="_blank">.NET C#</a>
                 and
-                {" "}<a class="typescript" href="https://www.typescriptlang.org" target="_blank">Typescript</a>, but I
-                know other languages as well including
-                {" "}<a class="cpp" href="https://cppreference.com/" target="_blank">C/C++</a>,
-                {" "}<a href="https://python.org" target="_blanck" class="python">Python</a>,
-                {" "}<a href="https://java.com" target="_blanck" class="java">Java</a>{" "}
+                <a href="https://www.typescriptlang.org" target="_blank">Typescript</a>, but I know other languages as
+                well including
+                <a href="https://cppreference.com/" target="_blank">C/C++</a>,
+                <a href="https://python.org" target="_blanck">Python</a>,
+                <a href="https://java.com" target="_blanck">Java</a>
                 and
-                {" "}<a href="https://php.net" target="_blanck" class="php">PHP</a>.
+                <a href="https://php.net" target="_blanck">PHP</a>.
             </p>
 
             <div class="margin-top projects-list">
                 <!-- btw these do not exist, copilot invented them -->
 
-                <Project expanded>
+                <Project
+                    tags={[{ text: "TS", color: "var(--typescript)" }, { text: "C#", color: "var(--csharp)" }, { text: "Astro", color: "var(--java)" }]}
+                    defaultOpen
+                >
                     <Fragment slot="summary">
                         <h3>FlenyBot</h3>
                         <p>A Discord bot</p>
@@ -82,7 +85,7 @@ import Layout from "#/layouts/Layout.astro";
                         </p>
                     </Fragment>
                 </Project>
-                <Project>
+                <Project tags={[{ text: "TS", color: "var(--typescript)" }, { text: "C#", color: "var(--csharp)" }]}>
                     <Fragment slot="summary">
                         <h3>FlenyBot</h3>
                     </Fragment>
@@ -150,6 +153,7 @@ import Layout from "#/layouts/Layout.astro";
         font-family: var(--font-inter);
         font-weight: bold;
         text-decoration: dashed underline var(--fleny-dark) 3px;
+        text-underline-offset: 5px;
         color: transparent;
         background: linear-gradient(to top right, var(--fleny-dark), var(--fleny-light));
         background-clip: text;
@@ -165,7 +169,7 @@ import Layout from "#/layouts/Layout.astro";
         position-anchor: --fleny-tooltip;
         position-area: top;
 
-        padding: 10px 1rem;
+        padding-inline: 10px;
 
         transition:
             opacity 0.3s ease,
@@ -225,30 +229,6 @@ import Layout from "#/layouts/Layout.astro";
         --python: hsl(48 100 65);
         --java: hsl(20 100 50);
         --php: hsl(229 30 64);
-
-        .dotnet {
-            color: var(--csharp);
-        }
-
-        .typescript {
-            color: var(--typescript);
-        }
-
-        .cpp {
-            color: var(--cpp);
-        }
-
-        .python {
-            color: var(--python);
-        }
-
-        .java {
-            color: var(--java);
-        }
-
-        .php {
-            color: var(--php);
-        }
     }
 
     .projects-list {

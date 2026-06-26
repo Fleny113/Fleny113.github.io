@@ -17,6 +17,7 @@ export default defineConfig({
             weights: ["400", "700"],
         },
     ],
+    compressHTML: true,
     integrations: [icon()],
     experimental: {
         chromeDevtoolsWorkspace: true,

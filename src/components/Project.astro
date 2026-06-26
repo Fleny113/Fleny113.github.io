@@ -7,15 +7,24 @@ assert(Astro.slots.has("details"), "Project component requires a 'details' slot"
 
 interface Props {
     children: unknown;
-    expanded?: boolean;
+    defaultOpen?: boolean;
+    tags?: {
+        text: string;
+        color: string;
+    }[];
 }
 ---
 
-<details open={Astro.props.expanded}>
+<details open={Astro.props.defaultOpen}>
     <summary>
         <Icon size={30} name="mdi:chevron-right" class="icon" aria-hidden />
         <div>
             <slot name="summary" />
+        </div>
+        <div class="tags-wrapper">
+            {Astro.props.tags?.map((tag) => (
+                <span class="project-tag" style={`--tag-color: ${tag.color}`}>{tag.text}</span>
+            ))}
         </div>
     </summary>
 
@@ -24,9 +33,6 @@ interface Props {
 
 <style>
     details {
-        display: flex;
-        flex-direction: column;
-
         interpolate-size: allow-keywords;
 
         &:not(:last-child) {
@@ -38,9 +44,9 @@ interface Props {
         text-align: left;
 
         display: grid;
-        grid-template-columns: auto 1fr auto;
+        grid-template-columns: min-content auto auto;
 
-        padding: 0.5rem;
+        padding: 0.5rem 0.75rem 0.5rem 0.25rem;
         border-bottom: 0px var(--border);
         cursor: pointer;
 
@@ -58,9 +64,6 @@ interface Props {
 
         .icon {
             place-self: center;
-            width: 1.5rem;
-            aspect-ratio: 1;
-
             transform-origin: center;
 
             details[open] & {
@@ -83,5 +86,24 @@ interface Props {
     details[open]::details-content {
         height: auto;
         padding-block: 0.5rem;
+    }
+
+    .tags-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-content: center;
+        gap: 0.5rem;
+
+        place-self: center end;
+    }
+
+    .project-tag {
+        font-size: 0.75rem;
+        font-weight: bold;
+
+        padding: 0.1em 0.5em;
+        border: 3px solid var(--tag-color);
+        border-radius: 40px;
     }
 </style>
