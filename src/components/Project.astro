@@ -11,74 +11,48 @@ interface Props {
 }
 ---
 
-<section class="project" data-expanded={Astro.props.expanded}>
-    <project-summary>
-        <button type="button" class="summary">
-            <Icon size={30} name="mdi:chevron-right" class="icon" aria-hidden />
-            <div>
-                <slot name="summary" />
-            </div>
-        </button>
-    </project-summary>
+<details open={Astro.props.expanded}>
+    <summary>
+        <Icon size={30} name="mdi:chevron-right" class="icon" aria-hidden />
+        <div>
+            <slot name="summary" />
+        </div>
+    </summary>
 
-    <div class="details">
-        <slot name="details" />
-    </div>
-</section>
-
-<script>
-    import { assert } from "#/utils.ts";
-
-    class ProjectSummary extends HTMLElement {
-        connectedCallback() {
-            const project = this.closest(".project");
-            const button = this.querySelector("button");
-
-            assert(project, "ProjectSummary must be a child of a Project component");
-            assert(button, "ProjectSummary must contain a button element");
-
-            button.addEventListener("click", () => project.toggleAttribute("data-expanded"));
-        }
-    }
-
-    customElements.define("project-summary", ProjectSummary);
-</script>
+    <slot name="details" />
+</details>
 
 <style>
-    .project {
+    details {
         display: flex;
         flex-direction: column;
+
+        interpolate-size: allow-keywords;
 
         &:not(:last-child) {
             border-bottom: 3px var(--border);
         }
     }
 
-    .summary {
-        appearance: none;
-        font: inherit;
-        background: none;
-        border: none;
-
+    summary {
         text-align: left;
 
         display: grid;
         grid-template-columns: auto 1fr auto;
 
-        width: 100%;
         padding: 0.5rem;
         border-bottom: 0px var(--border);
         cursor: pointer;
 
         transition:
-            border-bottom 0.1s ease,
-            background-color 0.2s ease;
+            border-bottom 0.3s ease,
+            background-color 0.3s ease;
 
         &:hover {
             background-color: hsl(0 0 100 / 0.1);
         }
 
-        [data-expanded] & {
+        details[open] & {
             border-bottom: 3px var(--border);
         }
 
@@ -89,24 +63,25 @@ interface Props {
 
             transform-origin: center;
 
-            [data-expanded] & {
-                transform: rotate(90deg);
+            details[open] & {
+                rotate: 90deg;
             }
         }
     }
 
-    .details {
+    details::details-content {
         overflow: hidden;
         height: 0;
 
-        interpolate-size: allow-keywords;
+        /* content-visibility is required to animate when the details is being closed */
         transition:
-            height 0.5s ease,
-            padding-top 0.3s ease;
+            height 0.3s ease,
+            padding-top 0.3s ease,
+            content-visibility 0.3s allow-discrete;
+    }
 
-        [data-expanded] & {
-            height: auto;
-            padding-block: 0.5rem;
-        }
+    details[open]::details-content {
+        height: auto;
+        padding-block: 0.5rem;
     }
 </style>
