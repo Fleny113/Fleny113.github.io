@@ -2,6 +2,7 @@
 import favicon from "#/assets/favicon.jpg";
 import Aquarium from "#/components/Aquarium.astro";
 import BlurSection from "#/components/BlurSection.astro";
+import Footer from "#/components/Footer.astro";
 import Project from "#/components/Project.astro";
 import Layout from "#/layouts/Layout.astro";
 ---
@@ -195,8 +196,9 @@ import Layout from "#/layouts/Layout.astro";
                             with contributions from other memebrs of the team.
                         </p>
                         <p class="margin-top">
-                            If you are interested, the code is
-                            <a href="https://github.com/PlanckTeam/Space4Arch" target="_blanck">open source</a>.
+                            If you are interested, you can check the
+                            <a href="https://github.com/PlanckTeam/Space4Arch" target="_blanck">github</a>
+                            for this. The code is not open source.
                         </p>
                     </Fragment>
                 </Project>
@@ -239,20 +241,7 @@ import Layout from "#/layouts/Layout.astro";
         </BlurSection>
     </main>
 
-    <footer>
-        <BlurSection>
-            <p>
-                Made with ♥️ by
-                <a class="fleny" href="https://github.com/Fleny113">Fleny113</a>
-                with <a href="https://astro.build/">Astro</a>
-            </p>
-            <p>
-                Go check out
-                <a class="TheTinkerersHaven" href="https://TheTinkerersHaven.github.io">TheTinkerersHaven</a>'s website too!
-            </p>
-            <a class="margin-top link-button" href="#main">Back to start</a>
-        </BlurSection>
-    </footer>
+    <Footer />
 </Layout>
 
 <style>
@@ -330,8 +319,8 @@ import Layout from "#/layouts/Layout.astro";
             opacity 0.3s ease,
             visibility 0.3s ease;
 
-        /** Show the tooltip when .fleny is hovered or the tooltip itself is hovered or in focus */
-        :has(.fleny:hover) &,
+        /** Show the tooltip when .fleny-anchor is hovered or the tooltip itself is hovered or in focus */
+        :has(.fleny-anchor:hover) &,
         &:hover,
         &:focus-within {
             opacity: 1;
@@ -367,23 +356,4 @@ import Layout from "#/layouts/Layout.astro";
     }
 
     /* #endregion Projects */
-
-    /* #region Footer */
-    footer {
-        text-align: center;
-        width: fit-content;
-        margin-inline: auto;
-
-        & section {
-            padding: 1rem 3rem;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            border-bottom: none;
-        }
-    }
-
-    .TheTinkerersHaven {
-        color: hsl(203, 80%, 56%);
-    }
-    /* #endregion Footer */
 </style>

@@ -1,0 +1,71 @@
+---
+import BlurSection from "./BlurSection.astro";
+---
+
+<footer>
+    <BlurSection>
+        <p>
+            Made with ♥️ by
+            <a class="fleny" href="https://github.com/Fleny113">Fleny113</a>
+            with <a href="https://astro.build/">Astro</a>
+        </p>
+        <p>
+            Go check out
+            <a class="greg greg-anchor" href="https://TheTinkerersHaven.github.io">TheTinkerersHaven</a>'s website too!
+        </p>
+        <a class="margin-top link-button" href="#main">Back to start</a>
+    </BlurSection>
+
+    <BlurSection class="greg-tooltip-content">
+        <p>My best friend, and fellow furry :3</p>
+    </BlurSection>
+</footer>
+
+<style>
+    footer {
+        text-align: center;
+        width: fit-content;
+        margin-inline: auto;
+
+        & section:first-child {
+            padding: 1rem 3rem;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: none;
+        }
+    }
+
+    .greg {
+        color: hsl(203, 80%, 56%);
+    }
+
+    .greg-anchor {
+        anchor-name: --greg-tooltip;
+
+        text-decoration: dashed underline currentColor 2px;
+        text-underline-offset: 5px;
+    }
+
+    .greg-tooltip-content {
+        opacity: 0;
+        visibility: hidden;
+
+        position: absolute;
+        position-anchor: --greg-tooltip;
+        position-area: top;
+
+        padding: 10px;
+
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+
+        /** Show the tooltip when .greg-anchor is hovered or the tooltip itself is hovered or in focus */
+        :has(.greg-anchor:hover) &,
+        &:hover,
+        &:focus-within {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+</style>
