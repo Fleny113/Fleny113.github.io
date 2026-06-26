@@ -1,72 +1,54 @@
 ---
 import BlurSection from "./BlurSection.astro";
+import Tooltip from "./Tooltip.astro";
 ---
 
 <footer>
     <BlurSection>
         <p>
             Made with ♥️ by
-            <a class="fleny" href="https://github.com/Fleny113">Fleny113</a>
+            <a class="fleny" href="https://github.com/Fleny113">Fleny</a>
             with <a href="https://astro.build/">Astro</a>
         </p>
         <p>
             Go check out
-            <a class="greg greg-anchor" href="https://TheTinkerersHaven.github.io">TheTinkerersHaven</a>'s website too!
+            <Tooltip tooltipName="greg-tooltip">
+                <a class="greg" href="https://TheTinkerersHaven.github.io">TheTinkerersHaven</a>
+
+                <Fragment slot="tooltip">
+                    <p>My best friend, and fellow furry :3</p>
+                </Fragment>
+            </Tooltip>
+            's website too!
         </p>
         <a class="margin-top link-button" href="#main">Back to start</a>
-    </BlurSection>
-
-    <BlurSection class="greg-tooltip-content">
-        <p>My best friend, and fellow furry :3</p>
     </BlurSection>
 </footer>
 
 <style>
     footer {
+        display: grid;
         text-align: center;
-        width: fit-content;
-        place-self: center;
-        margin-inline: 5rem;
 
         & section:first-child {
+            place-self: center;
+            margin-inline: 1rem;
             padding: 1rem 3rem;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             border-bottom: none;
+            word-break: break-word;
         }
+    }
+
+    .fleny {
+        font-family: var(--font-inter);
+        color: transparent;
+        background: linear-gradient(to top right in oklch, var(--fleny-dark), var(--fleny-light));
+        background-clip: text;
     }
 
     .greg {
         color: hsl(203, 80%, 56%);
-    }
-
-    .greg-anchor {
-        anchor-name: --greg-tooltip;
-
-        text-decoration: dashed underline currentColor 2px;
-        text-underline-offset: 5px;
-    }
-
-    .greg-tooltip-content {
-        opacity: 0;
-        visibility: hidden;
-
-        position: absolute;
-        position-anchor: --greg-tooltip;
-        position-area: top;
-
-        padding: 10px;
-
-        transition:
-            opacity 0.3s ease,
-            visibility 0.3s ease;
-
-        /** Show the tooltip when .greg-anchor is hovered or the tooltip itself is hovered or in focus */
-        :has(.greg-anchor:hover) &,
-        &:hover,
-        &:focus-within {
-            opacity: 1;
-            visibility: visible;
-        }
     }
 </style>
