@@ -40,7 +40,7 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
             delete this.dataset.fishes;
 
             // Calculate the number of fishes to spawn based on the viewport size, this way on smaller screens we don't spawn too many fishes
-            this.#fishCount = Math.min((viewportWidth * viewportHeight) / (FISH_WIDTH ** 2 * 5), MAX_FISH_COUNT);
+            this.#fishCount = Math.floor(Math.min((viewportWidth * viewportHeight) / (FISH_WIDTH ** 2 * 5), MAX_FISH_COUNT));
 
             console.debug(`[Aquarium] Spawning ${this.#fishCount} fishes`);
 
