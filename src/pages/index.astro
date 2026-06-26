@@ -245,6 +245,30 @@ import Layout from "#/layouts/Layout.astro";
                 </Project>
             </div>
         </BlurSection>
+
+        <BlurSection class="content">
+            <h2>Find me online</h2>
+            <p class="margin-top">
+                You can check out my profile on
+                <a class="align-icon" href="https://github.com/Fleny113" target="_blank"> Github </a>
+                or you can reach out to me on
+                <Tooltip tooltipName="discord-tooltip">
+                    <span class="underline align-icon"> Discord </span>
+
+                    <Fragment slot="tooltip">
+                        <p>My Discord tag is @fleny</p>
+                    </Fragment>
+                </Tooltip>
+                or by sending me an
+                <Tooltip tooltipName="email-tooltip">
+                    <a class="align-icon" href="mailto:fleny113@outlook.com" target="_blanck"> email </a>
+
+                    <Fragment slot="tooltip">
+                        <p>My email is fleny113@outlook.com</p>
+                    </Fragment>
+                </Tooltip>
+            </p>
+        </BlurSection>
     </main>
 
     <Footer />
@@ -256,11 +280,13 @@ import Layout from "#/layouts/Layout.astro";
         place-items: center;
         place-content: center;
         /* Force the first row to be 100dvh */
-        grid-template-rows: 100dvh auto;
-        gap: 5rem;
+        grid-template-rows: 100dvh;
+
+        /* Gap and margin-bottom should match */
+        gap: 50dvh;
+        margin-bottom: 50dvh;
 
         padding-inline: 16px;
-        margin-bottom: 5rem;
 
         text-wrap: balance;
         text-align: center;
@@ -326,9 +352,12 @@ import Layout from "#/layouts/Layout.astro";
         border: 3px var(--border);
         border-radius: 16px;
         background-color: hsl(0 0 100 / 0.1);
-        backdrop-filter: blur(16px);
         overflow: hidden;
     }
-
     /* #endregion Projects */
+
+    .underline {
+        text-decoration: dashed underline currentColor 2px;
+        text-underline-offset: 2px;
+    }
 </style>

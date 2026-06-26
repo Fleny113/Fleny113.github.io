@@ -40,7 +40,8 @@ body {
     margin-top: 1rem;
 }
 
-a[href^="https://"] {
+a[href^="https://"],
+a[href^="mailto:"] {
     text-decoration: underline dotted;
     text-underline-offset: 3px;
     color: inherit;

@@ -181,8 +181,8 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
                 element,
                 speed: {
                     // The +0.001 is to prevent the fish from being completely still
-                    x: (Math.random() - 0.5) * this.fishSpeed + 0.01,
-                    y: (Math.random() - 0.5) * this.fishSpeed + 0.01,
+                    x: Math.max((Math.random() - 0.5) * this.fishSpeed, -0.025),
+                    y: Math.max((Math.random() - 0.5) * this.fishSpeed, -0.025),
                 },
                 width: element.width,
                 height: element.height,
