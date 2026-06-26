@@ -1,0 +1,54 @@
+---
+import BlurSection from "./BlurSection.astro";
+import Tooltip from "./Tooltip.astro";
+---
+
+<footer>
+    <BlurSection>
+        <p>
+            Made with ♥️ by
+            <a class="fleny" href="https://github.com/Fleny113">Fleny</a>
+            with <a href="https://astro.build/">Astro</a>
+        </p>
+        <p>
+            Go check out
+            <Tooltip tooltipName="greg-tooltip">
+                <a class="greg" href="https://TheTinkerersHaven.github.io">TheTinkerersHaven</a>
+
+                <Fragment slot="tooltip">
+                    <p>My best friend, and fellow furry :3</p>
+                </Fragment>
+            </Tooltip>
+            's website too!
+        </p>
+        <a class="margin-top link-button" href="#main">Back to start</a>
+    </BlurSection>
+</footer>
+
+<style>
+    footer {
+        display: grid;
+        text-align: center;
+
+        & section:first-child {
+            place-self: center;
+            margin-inline: 1rem;
+            padding: 1rem 3rem;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: none;
+            word-break: break-word;
+        }
+    }
+
+    .fleny {
+        font-family: var(--font-inter);
+        color: transparent;
+        background: linear-gradient(to top right in oklch, var(--fleny-dark), var(--fleny-light));
+        background-clip: text;
+    }
+
+    .greg {
+        color: hsl(203, 80%, 56%);
+    }
+</style>

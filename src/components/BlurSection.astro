@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+const { class: className, ...rest } = Astro.props;
+
+type Props = HTMLAttributes<"section"> & {
+    children: unknown;
+    class?: string | string[];
+};
+---
+
+<section class:list={["blur-box", className]} {...rest}>
+    <slot />
+</section>
+
+<style>
+    section {
+        background: hsl(from var(--fleny-dark) h s l / 0.12);
+        border: 3px solid hsl(from var(--fleny-light) h s l / 0.3);
+        border-radius: 16px;
+        box-shadow: 0px 20px 20px 10px rgba(0 0 0 / 0.2);
+        backdrop-filter: blur(12px);
+    }
+</style>

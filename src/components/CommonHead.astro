@@ -1,0 +1,29 @@
+---
+import { Font, getImage } from "astro:assets";
+
+const image = await getImage({ src: Astro.props.image, format: "jpg" });
+
+type Props = {
+    title: string;
+    description: string;
+    image: ImageMetadata;
+    url: string;
+};
+---
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{Astro.props.title}</title>
+<meta name="description" content={Astro.props.description}>
+<meta property="og:title" content={Astro.props.title}>
+<meta property="og:description" content={Astro.props.description}>
+<meta property="og:image" content={image.src}>
+<meta property="og:url" content={Astro.props.url}>
+<meta name="twitter:title" content={Astro.props.title}>
+<meta name="twitter:description" content={Astro.props.description}>
+<meta name="twitter:image" content={image.src}>
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/jpg" href={image.src}>
+
+<Font cssVariable="--font-inter" />
+<Font cssVariable="--font-exo-2" />

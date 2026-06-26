@@ -1,0 +1,27 @@
+---
+interface Props {
+    children: unknown;
+    to: string;
+}
+---
+
+<astro-portal data-destination={Astro.props.to}>
+    <template>
+        <slot slot="tooltip" />
+    </template>
+</astro-portal>
+
+<script>
+    // biome-ignore-all lint/style/noNonNullAssertion: Both template and the destionation are required for the portal to work, so we can safely assert that they exist.
+    customElements.define(
+        "astro-portal",
+        class extends HTMLElement {
+            connectedCallback() {
+                const template = this.querySelector("template")!;
+                const content = template.content.cloneNode(true);
+                document.querySelector(this.dataset.destination!)?.appendChild(content);
+                this.remove();
+            }
+        },
+    );
+</script>

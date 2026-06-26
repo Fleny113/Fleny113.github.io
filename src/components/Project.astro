@@ -1,0 +1,128 @@
+---
+import { Icon } from "astro-icon/components";
+import { assert } from "#/utils.ts";
+
+assert(Astro.slots.has("summary"), "Project component requires a 'summary' slot");
+assert(Astro.slots.has("details"), "Project component requires a 'details' slot");
+
+interface Props {
+    children: unknown;
+    defaultOpen?: boolean;
+    tags?: {
+        text: string;
+        color: string;
+    }[];
+}
+---
+
+<details open={Astro.props.defaultOpen}>
+    <summary>
+        <Icon size={30} name="mdi:chevron-right" class="icon" aria-hidden />
+        <div class="summary-wrapper">
+            <div class="summary-content">
+                <slot name="summary" />
+            </div>
+            <div class="tags-wrapper">
+                {Astro.props.tags?.map((tag) => (
+                    <span class="project-tag" style={`--tag-color: ${tag.color}`}>{tag.text}</span>
+                ))}
+            </div>
+        </div>
+    </summary>
+
+    <slot name="details" />
+</details>
+
+<style>
+    details {
+        interpolate-size: allow-keywords;
+
+        &:not(:last-child) {
+            border-bottom: 3px var(--border);
+        }
+    }
+
+    summary {
+        text-align: left;
+
+        display: flex;
+
+        padding: 0.5rem 0.75rem 0.5rem 0.25rem;
+        border-bottom: 0px var(--border);
+        cursor: pointer;
+
+        transition:
+            border-bottom 0.3s ease,
+            background-color 0.3s ease;
+
+        &:hover {
+            background-color: hsl(0 0 100 / 0.1);
+        }
+
+        details[open] & {
+            border-bottom: 3px var(--border);
+        }
+
+        .icon {
+            width: 30px;
+            flex-shrink: 0;
+            place-self: center;
+            transform-origin: center;
+
+            details[open] & {
+                rotate: 90deg;
+            }
+        }
+
+        .summary-wrapper {
+            display: flex;
+            flex: 1;
+
+            @media (width <= 640px) {
+                gap: 0.5rem;
+                flex-direction: column;
+            }
+        }
+
+        .summary-content {
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .tags-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-content: center;
+            gap: 0.5rem;
+
+            place-self: center;
+        }
+    }
+
+    details::details-content {
+        overflow: hidden;
+        padding-inline: 0.4rem;
+        height: 0;
+
+        /* content-visibility is required to animate when the details is being closed */
+        transition:
+            height 0.3s ease,
+            padding-top 0.3s ease,
+            content-visibility 0.3s allow-discrete;
+    }
+
+    details[open]::details-content {
+        height: auto;
+        padding-block: 0.5rem;
+    }
+
+    .project-tag {
+        font-size: 0.75rem;
+        font-weight: bold;
+
+        padding: 0.1em 0.5em;
+        border: 3px solid var(--tag-color);
+        border-radius: 40px;
+    }
+</style>

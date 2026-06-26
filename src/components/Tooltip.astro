@@ -1,0 +1,54 @@
+---
+import { assert } from "#/utils.ts";
+import BlurSection from "./BlurSection.astro";
+import Portal from "./Portal.astro";
+
+assert(Astro.slots.has("tooltip"), "Tooltip requires a 'tooltip' slot");
+
+// We need to use a style tag with set:html because we need to use the tooltipName prop in the CSS selector, and we can't do that with a normal style tag.
+// This is because Astro doesn't support dynamic selectors in style tags, and we can't use a class or id because we want to support multiple tooltips on the same page.
+const tooltipStyle = `:has(.anchor[data-tooltip="${Astro.props.tooltipName}"]:hover) .tooltip[data-tooltip="${Astro.props.tooltipName}"]{opacity: 1;visibility: visible;}`;
+
+interface Props {
+    children: unknown;
+    tooltipName: string;
+}
+---
+
+<span class="anchor" data-tooltip={Astro.props.tooltipName} style={{ anchorName: `--${Astro.props.tooltipName}` }}>
+    <slot class="anchor" />
+</span>
+
+<Portal to="body">
+    <BlurSection class="tooltip" data-tooltip={Astro.props.tooltipName} style={{ positionAnchor: `--${Astro.props.tooltipName}` }}>
+        <slot name="tooltip" />
+    </BlurSection>
+</Portal>
+
+<style>
+    .tooltip {
+        isolation: isolate;
+
+        opacity: 0;
+        visibility: hidden;
+
+        position: absolute;
+        position-area: top;
+
+        padding: 10px;
+        font-size: 0.9rem;
+        text-align: center;
+
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+
+        &:hover,
+        &:focus-within {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+</style>
+
+<style set:html={tooltipStyle} is:inline></style>

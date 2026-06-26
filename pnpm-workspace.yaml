@@ -1,3 +1,6 @@
-allowBuilds:
-  '@parcel/watcher': true
-  esbuild: true
+configDependencies:
+  "@pnpm/pacquet": 0.11.7
+
+minimumReleaseAgeExclude:
+  - '@astrojs/markdown-satteri@0.3.1'
+  - astro@7.0.0
