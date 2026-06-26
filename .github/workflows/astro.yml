@@ -25,7 +25,7 @@ jobs:
                   cache: pnpm
             - name: Install dependencies
               run: pnpm install
-            - name: Static HTML export with Nuxt
+            - name: Build website
               run: node --run build
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v5
