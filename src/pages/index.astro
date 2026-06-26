@@ -1,7 +1,7 @@
 ---
 import favicon from "#/assets/favicon.jpg";
 import Aquarium from "#/components/Aquarium.astro";
-import BlurStyle from "#/components/BlurSection.astro";
+import BlurSection from "#/components/BlurSection.astro";
 import Project from "#/components/Project.astro";
 import Layout from "#/layouts/Layout.astro";
 ---
@@ -9,26 +9,26 @@ import Layout from "#/layouts/Layout.astro";
 <Layout title="Fleny" description="Fleny website" image={favicon} url="https://fleny113.github.io">
     <Aquarium />
 
-    <main>
-        <BlurStyle class="content">
+    <main id="main">
+        <BlurSection class="content">
             <h1 class="welcome-title">
                 <span class="welcome italic">Hi there!</span>
-                <span class="intro">I'm <span class="fleny">Fleny</span></span>
+                <span class="intro">I'm <span class="fleny fleny-anchor">Fleny</span></span>
             </h1>
             <p class="margin-top">
                 I'm a 19 years old high school CS student from <span class="italy">Italy</span> with a passion for tech, especially
                 <span class="programming">programming</span>.
             </p>
             <p class="margin-top">I hope you'll like what you see!</p>
-            <a class="margin-top explore-link" href="#projects">Have a look around</a>
-        </BlurStyle>
+            <a class="margin-top link-button" href="#projects">Have a look around</a>
+        </BlurSection>
 
-        <BlurStyle class="fleny-tooltip-content">
+        <BlurSection class="fleny-tooltip-content">
             <p>My pronouns are he/him</p>
             <p>And I'm a furry :3</p>
-        </BlurStyle>
+        </BlurSection>
 
-        <BlurStyle class="content" id="projects">
+        <BlurSection class="content" id="projects">
             <h2>Projects</h2>
             <p class="margin-top">
                 I usually code in <a href="https://www.typescriptlang.org" target="_blank">Typescript</a>
@@ -236,8 +236,23 @@ import Layout from "#/layouts/Layout.astro";
                     </Fragment>
                 </Project>
             </div>
-        </BlurStyle>
+        </BlurSection>
     </main>
+
+    <footer>
+        <BlurSection>
+            <p>
+                Made with ♥️ by
+                <a class="fleny" href="https://github.com/Fleny113">Fleny113</a>
+                with <a href="https://astro.build/">Astro</a>
+            </p>
+            <p>
+                Go check out
+                <a class="TheTinkerersHaven" href="https://TheTinkerersHaven.github.io">TheTinkerersHaven</a>'s website too!
+            </p>
+            <a class="margin-top link-button" href="#main">Back to start</a>
+        </BlurSection>
+    </footer>
 </Layout>
 
 <style>
@@ -247,10 +262,10 @@ import Layout from "#/layouts/Layout.astro";
         place-content: center;
         /* Force the first row to be 100dvh */
         grid-template-rows: 100dvh auto;
+        gap: 5rem;
 
         padding-inline: 16px;
-        /* This is provably temp, as there will be a footer */
-        padding-bottom: 120px;
+        margin-bottom: 5rem;
 
         text-wrap: balance;
         text-align: center;
@@ -290,13 +305,15 @@ import Layout from "#/layouts/Layout.astro";
     .fleny {
         font-family: var(--font-inter);
         font-weight: bold;
+        color: transparent;
+        background: linear-gradient(to top right in oklch, var(--fleny-dark), var(--fleny-light));
+        background-clip: text;
+    }
+
+    .fleny-anchor {
+        anchor-name: --fleny-tooltip;
         text-decoration: dashed underline var(--fleny-dark) 3px;
         text-underline-offset: 5px;
-        color: transparent;
-        background: linear-gradient(to top right, var(--fleny-dark), var(--fleny-light));
-        background-clip: text;
-
-        anchor-name: --fleny-tooltip;
     }
 
     .fleny-tooltip-content {
@@ -336,26 +353,6 @@ import Layout from "#/layouts/Layout.astro";
         font-family: monospace;
         color: lightgreen;
     }
-
-    .explore-link {
-        display: inline-block;
-
-        text-decoration: none;
-        color: inherit;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 24px;
-
-        background-color: hsl(from var(--fleny-light) h s l / 0.1);
-        box-shadow: 0px 10px 15px 5px hsl(0 0 0 / 0.2);
-
-        transition: background-color 0.2s ease;
-        cursor: pointer;
-
-        &:hover {
-            background-color: hsl(0 0 100 / 0.2);
-        }
-    }
     /* #endregion Hero */
 
     /* #region Projects */
@@ -370,4 +367,23 @@ import Layout from "#/layouts/Layout.astro";
     }
 
     /* #endregion Projects */
+
+    /* #region Footer */
+    footer {
+        text-align: center;
+        width: fit-content;
+        margin-inline: auto;
+
+        & section {
+            padding: 1rem 3rem;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom: none;
+        }
+    }
+
+    .TheTinkerersHaven {
+        color: hsl(203, 80%, 56%);
+    }
+    /* #endregion Footer */
 </style>

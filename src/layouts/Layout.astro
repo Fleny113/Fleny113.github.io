@@ -11,12 +11,7 @@ type Props = ComponentProps<typeof CommonHead> & {
 <!doctype html>
 <html lang="en">
     <head>
-        <CommonHead
-            title={Astro.props.title}
-            description={Astro.props.description}
-            image={Astro.props.image}
-            url={Astro.props.url}
-        />
+        <CommonHead title={Astro.props.title} description={Astro.props.description} image={Astro.props.image} url={Astro.props.url} />
     </head>
 
     <body>
