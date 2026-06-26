@@ -1,8 +1,9 @@
 ---
 import "./styles.css";
-import CommonHead, { type Props as CommonHeadProps } from "../components/CommonHead.astro";
+import type { ComponentProps } from "astro/types";
+import CommonHead from "../components/CommonHead.astro";
 
-type Props = CommonHeadProps & {
+type Props = ComponentProps<typeof CommonHead> & {
     children: unknown;
 };
 ---

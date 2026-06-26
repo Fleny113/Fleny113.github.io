@@ -3,7 +3,7 @@ import { Font, getImage } from "astro:assets";
 
 const image = await getImage({ src: Astro.props.image, format: "jpg" });
 
-export type Props = {
+type Props = {
     title: string;
     description: string;
     image: ImageMetadata;

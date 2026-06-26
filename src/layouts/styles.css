@@ -1,10 +1,17 @@
 :root {
-    /* Raw HSL values are useful for opacity changes */
-    --fleny-dark-hsl: 258 91 53;
-    --fleny-light-hsl: 254 56 84;
+    --fleny-dark: hsl(258 91 53);
+    --fleny-light: hsl(254 56 84);
 
-    --fleny-dark: hsl(var(--fleny-dark-hsl));
-    --fleny-light: hsl(var(--fleny-light-hsl));
+    --csharp: hsl(253 67 66);
+    --typescript: hsl(211 60 48);
+    --cpp: hsl(300 95 55);
+    --java: hsl(20 100 50);
+    --hardware-tag: hsl(143 50 53);
+    --school-tag: hsl(46 80 54);
+    --minecraft-tag: hsl(28 45 45);
+    --react-tag: hsl(191 65 60);
+    --lego-tag: hsl(357 100 45);
+    --discord: hsl(235 86 65);
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -37,4 +44,8 @@ a[href^="https://"] {
     text-decoration: underline dotted;
     text-underline-offset: 3px;
     color: inherit;
+}
+
+:target {
+    scroll-margin-top: 2rem;
 }

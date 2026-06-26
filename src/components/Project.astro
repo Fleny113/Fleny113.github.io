@@ -18,13 +18,15 @@ interface Props {
 <details open={Astro.props.defaultOpen}>
     <summary>
         <Icon size={30} name="mdi:chevron-right" class="icon" aria-hidden />
-        <div>
-            <slot name="summary" />
-        </div>
-        <div class="tags-wrapper">
-            {Astro.props.tags?.map((tag) => (
-                <span class="project-tag" style={`--tag-color: ${tag.color}`}>{tag.text}</span>
-            ))}
+        <div class="summary-wrapper">
+            <div class="summary-content">
+                <slot name="summary" />
+            </div>
+            <div class="tags-wrapper">
+                {Astro.props.tags?.map((tag) => (
+                    <span class="project-tag" style={`--tag-color: ${tag.color}`}>{tag.text}</span>
+                ))}
+            </div>
         </div>
     </summary>
 
@@ -43,8 +45,7 @@ interface Props {
     summary {
         text-align: left;
 
-        display: grid;
-        grid-template-columns: min-content auto auto;
+        display: flex;
 
         padding: 0.5rem 0.75rem 0.5rem 0.25rem;
         border-bottom: 0px var(--border);
@@ -63,6 +64,8 @@ interface Props {
         }
 
         .icon {
+            width: 30px;
+            flex-shrink: 0;
             place-self: center;
             transform-origin: center;
 
@@ -70,10 +73,36 @@ interface Props {
                 rotate: 90deg;
             }
         }
+
+        .summary-wrapper {
+            display: flex;
+            flex: 1;
+
+            @media (width <= 640px) {
+                gap: 0.5rem;
+                flex-direction: column;
+            }
+        }
+
+        .summary-content {
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .tags-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-content: center;
+            gap: 0.5rem;
+
+            place-self: center;
+        }
     }
 
     details::details-content {
         overflow: hidden;
+        padding-inline: 0.4rem;
         height: 0;
 
         /* content-visibility is required to animate when the details is being closed */
@@ -86,16 +115,6 @@ interface Props {
     details[open]::details-content {
         height: auto;
         padding-block: 0.5rem;
-    }
-
-    .tags-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        align-content: center;
-        gap: 0.5rem;
-
-        place-self: center end;
     }
 
     .project-tag {
