@@ -33,7 +33,7 @@ jobs:
             - name: Static HTML export with Nuxt
               run: node --run build
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
+              uses: actions/upload-pages-artifact@v5
               with:
                   path: dist
 
