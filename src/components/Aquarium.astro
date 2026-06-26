@@ -2,70 +2,61 @@
 import blueFish from "../assets/fishes/blue-fish.svg";
 import redFish from "../assets/fishes/red-fish.svg";
 import whiteFish from "../assets/fishes/white-fish.svg";
-import { getRandomElement } from "../utils.ts";
 
-const FISH_COUNT = 50;
-const FISH_WIDTH = 50;
-const FISH_BASE_SPEED = 0.12;
-const CURSOR_INFLUENCE_RADIUS = 65;
-const POSITION_CURSOR_REPULSION_STRENGTH = 1.2;
 const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
     src: svg.src,
     aspectRatio: svg.width / svg.height,
 }));
 ---
 
-<fish-aquarium
-    data-fish-speed={FISH_BASE_SPEED}
-    data-cursor-influence-radius={CURSOR_INFLUENCE_RADIUS}
-    data-cursor-repulsion-strength={POSITION_CURSOR_REPULSION_STRENGTH}
-    aria-hidden="true"
->
-    {Array.from({ length: FISH_COUNT }, () => {
-        const { src, aspectRatio } = getRandomElement(FISH_IMAGES);
-
-        return (
-            <img
-                class="fish"
-                src={src}
-                width={FISH_WIDTH}
-                height={FISH_WIDTH}
-                data-aspect-ratio={aspectRatio}
-                alt=""
-                decoding="async"
-                loading="eager"
-            />
-        );
-    })}
-</fish-aquarium>
+<fish-aquarium data-fishes={JSON.stringify(FISH_IMAGES)} aria-hidden="true" />
 
 <script>
-    import { assert } from "#/utils.ts";
+    import { assert, getRandomElement } from "#/utils.ts";
+
+    const MAX_FISH_COUNT = 50;
+    const FISH_WIDTH = 50;
+    const FISH_BASE_SPEED = 0.12;
+    const CURSOR_INFLUENCE_RADIUS = 65;
+    const POSITION_CURSOR_REPULSION_STRENGTH = 1.2;
 
     class Aquarium extends HTMLElement {
         #lastTimestamp: number | null = null;
         #pointerCoords = { x: 0, y: 0 };
+        #fishCount!: number;
+        #fishesData!: { src: string; aspectRatio: number }[];
 
-        fishSpeed!: number;
-        fishCursorInfluenceRadius!: number;
-        fishCursorRepulsionStrength!: number;
-        fishes!: Fish[];
+        fishes: Fish[] = [];
 
         connectedCallback() {
-            assert(this.dataset.fishSpeed, "Fish speed not found");
-            assert(this.dataset.cursorInfluenceRadius, "Cursor influence radius missing");
-            assert(this.dataset.cursorRepulsionStrength, "Cursor repulsion strength not found");
+            const viewportWidth = this.clientWidth;
+            const viewportHeight = this.clientHeight;
 
-            this.fishSpeed = parseFloat(this.dataset.fishSpeed);
-            this.fishCursorInfluenceRadius = parseFloat(this.dataset.cursorInfluenceRadius);
-            this.fishCursorRepulsionStrength = parseFloat(this.dataset.cursorRepulsionStrength);
+            assert(this.dataset.fishes, "Fishes data not found");
+
+            this.#fishesData = JSON.parse(this.dataset.fishes);
 
             // They are init values, so we don't need them anymore after we read them
-            delete this.dataset.fishSpeed;
-            delete this.dataset.cursorInfluenceRadius;
-            delete this.dataset.cursorRepulsionStrength;
+            delete this.dataset.fishes;
 
-            this.fishes = Array.from(this.querySelectorAll<HTMLImageElement>("img")).map(this.#buildFish.bind(this));
+            // Calculate the number of fishes to spawn based on the viewport size, this way on smaller screens we don't spawn too many fishes
+            this.#fishCount = Math.min((viewportWidth * viewportHeight) / (FISH_WIDTH ** 2 * 5), MAX_FISH_COUNT);
+
+            console.debug(`[Aquarium] Spawning ${this.#fishCount} fishes`);
+
+            for (let i = 0; i < this.#fishCount; i++) {
+                const { src, aspectRatio } = getRandomElement(this.#fishesData);
+
+                const fishElement = document.createElement("img");
+                fishElement.classList.add("fish");
+                fishElement.src = src;
+                fishElement.alt = "";
+                fishElement.decoding = "async";
+                fishElement.loading = "eager";
+
+                this.appendChild(fishElement);
+                this.fishes.push(this.#buildFish(fishElement, aspectRatio, viewportWidth, viewportHeight));
+            }
 
             document.addEventListener("pointermove", (event) => {
                 this.#pointerCoords.x = event.clientX;
@@ -88,8 +79,8 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
                 return;
             }
 
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
+            const viewportWidth = this.clientWidth;
+            const viewportHeight = this.clientHeight;
 
             for (const fish of this.fishes) {
                 this.#tickFish(fish, deltaTime, viewportWidth, viewportHeight);
@@ -118,18 +109,18 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
             // Mouse repulsion
             // First we check a box around the fish to avoid doing the distance calculations for every fish on every frame
             if (
-                this.#pointerCoords.x >= fishCenterX - this.fishCursorInfluenceRadius &&
-                this.#pointerCoords.x <= fishCenterX + this.fishCursorInfluenceRadius &&
-                this.#pointerCoords.y >= fishCenterY - this.fishCursorInfluenceRadius &&
-                this.#pointerCoords.y <= fishCenterY + this.fishCursorInfluenceRadius
+                this.#pointerCoords.x >= fishCenterX - CURSOR_INFLUENCE_RADIUS &&
+                this.#pointerCoords.x <= fishCenterX + CURSOR_INFLUENCE_RADIUS &&
+                this.#pointerCoords.y >= fishCenterY - CURSOR_INFLUENCE_RADIUS &&
+                this.#pointerCoords.y <= fishCenterY + CURSOR_INFLUENCE_RADIUS
             ) {
                 const dx = fishCenterX - this.#pointerCoords.x;
                 const dy = -(fishCenterY - this.#pointerCoords.y);
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < this.fishCursorInfluenceRadius) {
-                    const closeness = (this.fishCursorInfluenceRadius - distance) / this.fishCursorInfluenceRadius;
-                    const repulsionStrength = (closeness + 1) * this.fishCursorRepulsionStrength;
+                if (distance < CURSOR_INFLUENCE_RADIUS) {
+                    const closeness = (CURSOR_INFLUENCE_RADIUS - distance) / CURSOR_INFLUENCE_RADIUS;
+                    const repulsionStrength = (closeness + 1) * POSITION_CURSOR_REPULSION_STRENGTH;
 
                     if (dx > 0 && dy > 0) {
                         // The fish is top right of the cursor
@@ -166,29 +157,26 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
             fish.element.style.transform = `translate3d(${fish.position.x}px, ${fish.position.y}px, 0) scale3d(${-Math.sign(fish.speed.x)}, 1, 1)`;
         }
 
-        #buildFish(element: HTMLImageElement): Fish {
-            assert(element.dataset.aspectRatio, "Aspect ratio not found");
-
+        #buildFish(element: HTMLImageElement, aspectRatio: number, viewportWidth: number, viewportHeight: number): Fish {
             const scale = Math.random() * 0.2 + 0.8;
-            const aspectRatio = parseFloat(element.dataset.aspectRatio);
+            const width = FISH_WIDTH * scale;
 
-            const width = element.width * scale;
-
-            element.width = width;
-            element.height = width / aspectRatio;
+            const elementWidth = width;
+            const elementHeight = width / aspectRatio;
+            element.width = elementWidth;
+            element.height = elementHeight;
 
             return {
                 element,
                 speed: {
-                    // The +0.001 is to prevent the fish from being completely still
-                    x: Math.max((Math.random() - 0.5) * this.fishSpeed, -0.025),
-                    y: Math.max((Math.random() - 0.5) * this.fishSpeed, -0.025),
+                    x: Math.max((Math.random() - 0.5) * FISH_BASE_SPEED, -0.025),
+                    y: Math.max((Math.random() - 0.5) * FISH_BASE_SPEED, -0.025),
                 },
-                width: element.width,
-                height: element.height,
+                width: elementWidth,
+                height: elementHeight,
                 position: {
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight,
+                    x: Math.random() * viewportWidth,
+                    y: Math.random() * viewportHeight,
                 },
             };
         }
