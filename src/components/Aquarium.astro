@@ -23,9 +23,6 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
     class Aquarium extends HTMLElement {
         #lastTimestamp: number | null = null;
         #pointerCoords = { x: 0, y: 0 };
-        #fishCount!: number;
-        #fishesData!: { src: string; aspectRatio: number }[];
-
         fishes: Fish[] = [];
 
         connectedCallback() {
@@ -34,18 +31,18 @@ const FISH_IMAGES = [blueFish, redFish, whiteFish].map((svg) => ({
 
             assert(this.dataset.fishes, "Fishes data not found");
 
-            this.#fishesData = JSON.parse(this.dataset.fishes);
+            const fishes: { src: string; aspectRatio: number }[] = JSON.parse(this.dataset.fishes);
 
             // They are init values, so we don't need them anymore after we read them
             delete this.dataset.fishes;
 
             // Calculate the number of fishes to spawn based on the viewport size, this way on smaller screens we don't spawn too many fishes
-            this.#fishCount = Math.floor(Math.min((viewportWidth * viewportHeight) / (FISH_WIDTH ** 2 * 5), MAX_FISH_COUNT));
+            const fishCount = Math.floor(Math.min((viewportWidth * viewportHeight) / (FISH_WIDTH ** 2 * 5), MAX_FISH_COUNT));
 
-            console.debug(`[Aquarium] Spawning ${this.#fishCount} fishes`);
+            console.debug(`[Aquarium] Spawning ${fishCount} fishes`);
 
-            for (let i = 0; i < this.#fishCount; i++) {
-                const { src, aspectRatio } = getRandomElement(this.#fishesData);
+            for (let i = 0; i < fishCount; i++) {
+                const { src, aspectRatio } = getRandomElement(fishes);
 
                 const fishElement = document.createElement("img");
                 fishElement.classList.add("fish");
