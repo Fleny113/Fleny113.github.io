@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "astro": "^7.1.6",
+    "astro": "^7.2.0",
     "astro-icon": "^1.1.5"
   },
   "devDependencies": {
