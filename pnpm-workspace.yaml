@@ -1,9 +1,6 @@
 allowBuilds:
   esbuild: true
 
-configDependencies:
-  "@pnpm/pacquet": latest
-
 minimumReleaseAgeExclude:
   - '@astrojs/markdown-satteri@0.3.1'
   - astro@7.0.0
