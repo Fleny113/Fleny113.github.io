@@ -9,6 +9,9 @@ updates:
       directory: "/"
       schedule:
           interval: "weekly"
+      groups:
+          dependency-bumps:
+                patterns: ['*']
     - package-ecosystem: "github-actions"
       directory: "/"
       schedule:
