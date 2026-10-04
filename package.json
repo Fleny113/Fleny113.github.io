@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@biomejs/biome": "2.5.14",
-    "sharp": "^0.35.4",
+    "@biomejs/biome": "2.5.15",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.3"
   },
   "engines": {
