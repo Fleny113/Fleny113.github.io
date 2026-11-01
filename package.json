@@ -14,12 +14,12 @@
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "astro": "^7.4.2",
+    "astro": "^7.4.4",
     "astro-icon": "^1.2.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
-    "@biomejs/biome": "2.6.2",
+    "@biomejs/biome": "2.6.4",
     "sharp": "^0.35.5",
     "typescript": "^6.0.3"
   },
